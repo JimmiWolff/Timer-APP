@@ -111,6 +111,14 @@ class TimerViewModel: ObservableObject {
         // Play work start beep
         audioManager.playBeep(.workStart)
 
+        // Schedule background wake-ups for state transitions
+        // This ensures the app wakes up to update Live Activities even when suspended
+        BackgroundUpdateScheduler.shared.scheduleTransitionWakeUps(
+            workDuration: config.workTime,
+            restDuration: config.restTime,
+            rounds: config.rounds
+        )
+
         // Start Live Activity
         if #available(iOS 16.1, *) {
             Task {
@@ -185,6 +193,9 @@ class TimerViewModel: ObservableObject {
 
         // Reset engine
         timerEngine.reset()
+
+        // Cancel scheduled wake-up notifications
+        BackgroundUpdateScheduler.shared.cancelAllWakeUps()
 
         // Reset state
         state = .idle
@@ -318,6 +329,9 @@ class TimerViewModel: ObservableObject {
         uiUpdateTimer?.cancel()
         timeRemaining = 0
         progress = 1.0
+
+        // Cancel any remaining scheduled notifications
+        BackgroundUpdateScheduler.shared.cancelAllWakeUps()
 
         // Play completion beep
         audioManager.playBeep(.workoutComplete)
