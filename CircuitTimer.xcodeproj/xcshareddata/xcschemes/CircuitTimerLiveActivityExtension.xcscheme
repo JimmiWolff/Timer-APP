@@ -58,9 +58,15 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
       <RemoteRunnable
-         runnableDebuggingMode = "0"
-         BundleIdentifier = "dk.openexperience.genbrugsapp.openx"
-         RemotePath = "/var/containers/Bundle/Application/7C48691A-6A28-4071-BDCC-2F9145520D7A/Runner.app">
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "ECF7EBC52F15552D001215E9"
+            BuildableName = "CircuitTimerLiveActivityExtension.appex"
+            BlueprintName = "CircuitTimerLiveActivityExtension"
+            ReferencedContainer = "container:CircuitTimer.xcodeproj">
+         </BuildableReference>
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference

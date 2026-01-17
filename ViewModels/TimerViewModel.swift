@@ -229,6 +229,8 @@ class TimerViewModel: ObservableObject {
             .sink { [weak self] _ in
                 self?.updateState()
             }
+
+        print("TimerViewModel: Started UI update timer")
     }
 
     /// Update state on each timer tick
@@ -294,17 +296,15 @@ class TimerViewModel: ObservableObject {
                 return
             }
 
-            // Capture state variables before async task
-            let capturedState = state
-            let capturedRound = currentRound
-            let capturedTotal = totalRounds
+            print("TimerViewModel: Interval end date: \(intervalEndDate), time until end: \(intervalEndDate.timeIntervalSinceNow)s")
 
-            // Use high-priority task to ensure execution
-            Task(priority: .high) { @MainActor in
+            // Update Live Activity immediately in current execution context
+            // This ensures the update starts before any potential app suspension
+            Task { @MainActor in
                 await self.updateLiveActivityWithBackgroundTask(
-                    currentState: capturedState,
-                    currentRound: capturedRound,
-                    totalRounds: capturedTotal,
+                    currentState: state,
+                    currentRound: currentRound,
+                    totalRounds: totalRounds,
                     intervalEndDate: intervalEndDate,
                     isPaused: false
                 )
