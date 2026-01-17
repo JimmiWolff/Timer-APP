@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import UIKit
 
 /// Main ViewModel orchestrating timer functionality
 ///
@@ -253,6 +254,8 @@ class TimerViewModel: ObservableObject {
     private func advanceToNextInterval() {
         guard let config = config else { return }
 
+        let previousState = state
+
         switch state {
         case .work:
             // Work → Rest
@@ -280,14 +283,29 @@ class TimerViewModel: ObservableObject {
             break
         }
 
+        print("TimerViewModel: State transition \(previousState.displayName) → \(state.displayName), Round \(currentRound)/\(totalRounds)")
+
         // Update Live Activity with new state
+        // CRITICAL: Use background task to ensure update completes even when app is backgrounded
         if #available(iOS 16.1, *) {
-            Task {
-                await liveActivityManager?.updateLiveActivity(
-                    currentState: state,
-                    currentRound: currentRound,
-                    totalRounds: totalRounds,
-                    intervalEndDate: timerEngine.intervalEndDate ?? Date(),
+            // Get fresh interval end date immediately after starting new interval
+            guard let intervalEndDate = timerEngine.intervalEndDate else {
+                print("TimerViewModel: WARNING - No interval end date available")
+                return
+            }
+
+            // Capture state variables before async task
+            let capturedState = state
+            let capturedRound = currentRound
+            let capturedTotal = totalRounds
+
+            // Use high-priority task to ensure execution
+            Task(priority: .high) { @MainActor in
+                await self.updateLiveActivityWithBackgroundTask(
+                    currentState: capturedState,
+                    currentRound: capturedRound,
+                    totalRounds: capturedTotal,
+                    intervalEndDate: intervalEndDate,
                     isPaused: false
                 )
             }
@@ -330,6 +348,59 @@ class TimerViewModel: ObservableObject {
                     }
                 }
             }
+    }
+
+    /// Update Live Activity with background task protection
+    ///
+    /// This ensures the update completes even when the app is suspended (e.g., when music is playing)
+    @available(iOS 16.1, *)
+    private func updateLiveActivityWithBackgroundTask(
+        currentState: TimerState,
+        currentRound: Int,
+        totalRounds: Int,
+        intervalEndDate: Date,
+        isPaused: Bool
+    ) async {
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+
+        print("LiveActivity: Starting background task for \(currentState.displayName) transition")
+
+        // Request background time to complete the update
+        backgroundTaskID = await UIApplication.shared.beginBackgroundTask {
+            // Cleanup when time expires
+            print("LiveActivity: Background task time expiring, cleaning up")
+            if backgroundTaskID != .invalid {
+                Task { @MainActor in
+                    await UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                    backgroundTaskID = .invalid
+                }
+            }
+        }
+
+        guard backgroundTaskID != .invalid else {
+            print("LiveActivity: ERROR - Failed to start background task")
+            return
+        }
+
+        print("LiveActivity: Background task started with ID \(backgroundTaskID.rawValue)")
+
+        // Update the Live Activity with explicit date logging
+        let timeUntilEnd = intervalEndDate.timeIntervalSinceNow
+        print("LiveActivity: Updating to \(currentState.displayName), Round \(currentRound)/\(totalRounds), Time until end: \(timeUntilEnd)s")
+
+        await liveActivityManager?.updateLiveActivity(
+            currentState: currentState,
+            currentRound: currentRound,
+            totalRounds: totalRounds,
+            intervalEndDate: intervalEndDate,
+            isPaused: isPaused
+        )
+
+        print("LiveActivity: Update completed, ending background task")
+
+        // End background task
+        await UIApplication.shared.endBackgroundTask(backgroundTaskID)
+        print("LiveActivity: Background task ended")
     }
 
     // MARK: - Computed Properties for UI
