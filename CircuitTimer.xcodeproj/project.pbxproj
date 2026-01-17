@@ -1,0 +1,911 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */; };
+		EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */; };
+		EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */; };
+		EC94C7372F1A923800B54D1F /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE52F157517001215E9 /* TimerState.swift */; };
+		EC94C7382F1A923800B54D1F /* IntervalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE62F157517001215E9 /* IntervalType.swift */; };
+		EC94C7392F1A923800B54D1F /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE72F157517001215E9 /* TimerConfiguration.swift */; };
+		ECF7EB9C2F1553A5001215E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */; };
+		ECF7EBA02F1553A5001215E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECF7EB9F2F1553A5001215E9 /* Preview Assets.xcassets */; };
+		ECF7EBAA2F1553A5001215E9 /* CircuitTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBA92F1553A5001215E9 /* CircuitTimerTests.swift */; };
+		ECF7EBB42F1553A5001215E9 /* CircuitTimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBB32F1553A5001215E9 /* CircuitTimerUITests.swift */; };
+		ECF7EBB62F1553A5001215E9 /* CircuitTimerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBB52F1553A5001215E9 /* CircuitTimerUITestsLaunchTests.swift */; };
+		ECF7EBC92F15552D001215E9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF7EBC82F15552D001215E9 /* WidgetKit.framework */; };
+		ECF7EBCB2F15552D001215E9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF7EBCA2F15552D001215E9 /* SwiftUI.framework */; };
+		ECF7EBD82F15552F001215E9 /* CircuitTimerLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ECF7EBC62F15552D001215E9 /* CircuitTimerLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ECF7EBF52F157518001215E9 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE02F157516001215E9 /* AudioManager.swift */; };
+		ECF7EBF62F157518001215E9 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */; };
+		ECF7EBF72F157518001215E9 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE22F157516001215E9 /* TimerEngine.swift */; };
+		ECF7EBF82F157518001215E9 /* CircuitTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE32F157516001215E9 /* CircuitTimerApp.swift */; };
+		ECF7EBF92F157518001215E9 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE52F157517001215E9 /* TimerState.swift */; };
+		ECF7EBFA2F157518001215E9 /* IntervalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE62F157517001215E9 /* IntervalType.swift */; };
+		ECF7EBFB2F157518001215E9 /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE72F157517001215E9 /* TimerConfiguration.swift */; };
+		ECF7EBFC2F157518001215E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE92F157517001215E9 /* Constants.swift */; };
+		ECF7EBFD2F157518001215E9 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBEA2F157517001215E9 /* TimeFormatter.swift */; };
+		ECF7EBFE2F157518001215E9 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBEC2F157517001215E9 /* SetupView.swift */; };
+		ECF7EBFF2F157518001215E9 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBED2F157517001215E9 /* TimerView.swift */; };
+		ECF7EC002F157518001215E9 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBEF2F157517001215E9 /* CircularProgressView.swift */; };
+		ECF7EC012F157518001215E9 /* ControlButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF02F157517001215E9 /* ControlButtonsView.swift */; };
+		ECF7EC022F157518001215E9 /* TimeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */; };
+		ECF7EC032F157518001215E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF22F157517001215E9 /* ContentView.swift */; };
+		ECF7EC042F157518001215E9 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF42F157518001215E9 /* TimerViewModel.swift */; };
+		ECF7EC0B2F157658001215E9 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECF7EBA62F1553A5001215E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF7EB8C2F1553A3001215E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECF7EB932F1553A3001215E9;
+			remoteInfo = CircuitTimer;
+		};
+		ECF7EBB02F1553A5001215E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF7EB8C2F1553A3001215E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECF7EB932F1553A3001215E9;
+			remoteInfo = CircuitTimer;
+		};
+		ECF7EBD62F15552F001215E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF7EB8C2F1553A3001215E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECF7EBC52F15552D001215E9;
+			remoteInfo = CircuitTimerLiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECF7EBDC2F15552F001215E9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ECF7EBD82F15552F001215E9 /* CircuitTimerLiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivityBundle.swift; sourceTree = "<group>"; };
+		EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivity.swift; sourceTree = "<group>"; };
+		EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseResumeIntent.swift; sourceTree = "<group>"; };
+		ECF7EB942F1553A3001215E9 /* CircuitTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ECF7EB9D2F1553A5001215E9 /* CircuitTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CircuitTimer.entitlements; sourceTree = "<group>"; };
+		ECF7EB9F2F1553A5001215E9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ECF7EBA52F1553A5001215E9 /* CircuitTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircuitTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF7EBA92F1553A5001215E9 /* CircuitTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTimerTests.swift; sourceTree = "<group>"; };
+		ECF7EBAF2F1553A5001215E9 /* CircuitTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircuitTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF7EBB32F1553A5001215E9 /* CircuitTimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTimerUITests.swift; sourceTree = "<group>"; };
+		ECF7EBB52F1553A5001215E9 /* CircuitTimerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTimerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ECF7EBC62F15552D001215E9 /* CircuitTimerLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CircuitTimerLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF7EBC82F15552D001215E9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		ECF7EBCA2F15552D001215E9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		ECF7EBE02F157516001215E9 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		ECF7EBE22F157516001215E9 /* TimerEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		ECF7EBE32F157516001215E9 /* CircuitTimerApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerApp.swift; sourceTree = "<group>"; };
+		ECF7EBE52F157517001215E9 /* TimerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
+		ECF7EBE62F157517001215E9 /* IntervalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalType.swift; sourceTree = "<group>"; };
+		ECF7EBE72F157517001215E9 /* TimerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
+		ECF7EBE92F157517001215E9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ECF7EBEA2F157517001215E9 /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
+		ECF7EBEC2F157517001215E9 /* SetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		ECF7EBED2F157517001215E9 /* TimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		ECF7EBEF2F157517001215E9 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		ECF7EBF02F157517001215E9 /* ControlButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlButtonsView.swift; sourceTree = "<group>"; };
+		ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
+		ECF7EBF22F157517001215E9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ECF7EBF42F157518001215E9 /* TimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECF7EB912F1553A3001215E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBA22F1553A5001215E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBAC2F1553A5001215E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBC32F15552D001215E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF7EBCB2F15552D001215E9 /* SwiftUI.framework in Frameworks */,
+				ECF7EBC92F15552D001215E9 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECF7EB8B2F1553A3001215E9 = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBE32F157516001215E9 /* CircuitTimerApp.swift */,
+				ECF7EBE42F157516001215E9 /* Models */,
+				ECF7EBDF2F157516001215E9 /* Services */,
+				ECF7EBE82F157517001215E9 /* Utilities */,
+				ECF7EBF32F157518001215E9 /* ViewModels */,
+				ECF7EBEB2F157517001215E9 /* Views */,
+				ECF7EB962F1553A3001215E9 /* CircuitTimer */,
+				ECF7EBA82F1553A5001215E9 /* CircuitTimerTests */,
+				ECF7EBB22F1553A5001215E9 /* CircuitTimerUITests */,
+				ECF7EBCC2F15552D001215E9 /* CircuitTimerLiveActivity */,
+				ECF7EBC72F15552D001215E9 /* Frameworks */,
+				ECF7EB952F1553A3001215E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECF7EB952F1553A3001215E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EB942F1553A3001215E9 /* CircuitTimer.app */,
+				ECF7EBA52F1553A5001215E9 /* CircuitTimerTests.xctest */,
+				ECF7EBAF2F1553A5001215E9 /* CircuitTimerUITests.xctest */,
+				ECF7EBC62F15552D001215E9 /* CircuitTimerLiveActivityExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECF7EB962F1553A3001215E9 /* CircuitTimer */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */,
+				ECF7EB9D2F1553A5001215E9 /* CircuitTimer.entitlements */,
+				ECF7EB9E2F1553A5001215E9 /* Preview Content */,
+			);
+			path = CircuitTimer;
+			sourceTree = "<group>";
+		};
+		ECF7EB9E2F1553A5001215E9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EB9F2F1553A5001215E9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ECF7EBA82F1553A5001215E9 /* CircuitTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBA92F1553A5001215E9 /* CircuitTimerTests.swift */,
+			);
+			path = CircuitTimerTests;
+			sourceTree = "<group>";
+		};
+		ECF7EBB22F1553A5001215E9 /* CircuitTimerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBB32F1553A5001215E9 /* CircuitTimerUITests.swift */,
+				ECF7EBB52F1553A5001215E9 /* CircuitTimerUITestsLaunchTests.swift */,
+			);
+			path = CircuitTimerUITests;
+			sourceTree = "<group>";
+		};
+		ECF7EBC72F15552D001215E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBC82F15552D001215E9 /* WidgetKit.framework */,
+				ECF7EBCA2F15552D001215E9 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECF7EBCC2F15552D001215E9 /* CircuitTimerLiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */,
+				EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */,
+				EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */,
+			);
+			path = CircuitTimerLiveActivity;
+			sourceTree = "<group>";
+		};
+		ECF7EBDF2F157516001215E9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBE02F157516001215E9 /* AudioManager.swift */,
+				ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */,
+				ECF7EBE22F157516001215E9 /* TimerEngine.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		ECF7EBE42F157516001215E9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBE52F157517001215E9 /* TimerState.swift */,
+				ECF7EBE62F157517001215E9 /* IntervalType.swift */,
+				ECF7EBE72F157517001215E9 /* TimerConfiguration.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ECF7EBE82F157517001215E9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBE92F157517001215E9 /* Constants.swift */,
+				ECF7EBEA2F157517001215E9 /* TimeFormatter.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		ECF7EBEB2F157517001215E9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBEC2F157517001215E9 /* SetupView.swift */,
+				ECF7EBED2F157517001215E9 /* TimerView.swift */,
+				ECF7EBEE2F157517001215E9 /* Components */,
+				ECF7EBF22F157517001215E9 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ECF7EBEE2F157517001215E9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBEF2F157517001215E9 /* CircularProgressView.swift */,
+				ECF7EBF02F157517001215E9 /* ControlButtonsView.swift */,
+				ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		ECF7EBF32F157518001215E9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				ECF7EBF42F157518001215E9 /* TimerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECF7EB932F1553A3001215E9 /* CircuitTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECF7EBB92F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimer" */;
+			buildPhases = (
+				ECF7EB902F1553A3001215E9 /* Sources */,
+				ECF7EB912F1553A3001215E9 /* Frameworks */,
+				ECF7EB922F1553A3001215E9 /* Resources */,
+				ECF7EBDC2F15552F001215E9 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECF7EBD72F15552F001215E9 /* PBXTargetDependency */,
+			);
+			name = CircuitTimer;
+			productName = CircuitTimer;
+			productReference = ECF7EB942F1553A3001215E9 /* CircuitTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ECF7EBA42F1553A5001215E9 /* CircuitTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECF7EBBC2F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerTests" */;
+			buildPhases = (
+				ECF7EBA12F1553A5001215E9 /* Sources */,
+				ECF7EBA22F1553A5001215E9 /* Frameworks */,
+				ECF7EBA32F1553A5001215E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECF7EBA72F1553A5001215E9 /* PBXTargetDependency */,
+			);
+			name = CircuitTimerTests;
+			productName = CircuitTimerTests;
+			productReference = ECF7EBA52F1553A5001215E9 /* CircuitTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ECF7EBAE2F1553A5001215E9 /* CircuitTimerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECF7EBBF2F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerUITests" */;
+			buildPhases = (
+				ECF7EBAB2F1553A5001215E9 /* Sources */,
+				ECF7EBAC2F1553A5001215E9 /* Frameworks */,
+				ECF7EBAD2F1553A5001215E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECF7EBB12F1553A5001215E9 /* PBXTargetDependency */,
+			);
+			name = CircuitTimerUITests;
+			productName = CircuitTimerUITests;
+			productReference = ECF7EBAF2F1553A5001215E9 /* CircuitTimerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		ECF7EBC52F15552D001215E9 /* CircuitTimerLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECF7EBD92F15552F001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerLiveActivityExtension" */;
+			buildPhases = (
+				ECF7EBC22F15552D001215E9 /* Sources */,
+				ECF7EBC32F15552D001215E9 /* Frameworks */,
+				ECF7EBC42F15552D001215E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CircuitTimerLiveActivityExtension;
+			productName = CircuitTimerLiveActivityExtension;
+			productReference = ECF7EBC62F15552D001215E9 /* CircuitTimerLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECF7EB8C2F1553A3001215E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					ECF7EB932F1553A3001215E9 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					ECF7EBA42F1553A5001215E9 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = ECF7EB932F1553A3001215E9;
+					};
+					ECF7EBAE2F1553A5001215E9 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = ECF7EB932F1553A3001215E9;
+					};
+					ECF7EBC52F15552D001215E9 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = ECF7EB8F2F1553A3001215E9 /* Build configuration list for PBXProject "CircuitTimer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ECF7EB8B2F1553A3001215E9;
+			productRefGroup = ECF7EB952F1553A3001215E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECF7EB932F1553A3001215E9 /* CircuitTimer */,
+				ECF7EBA42F1553A5001215E9 /* CircuitTimerTests */,
+				ECF7EBAE2F1553A5001215E9 /* CircuitTimerUITests */,
+				ECF7EBC52F15552D001215E9 /* CircuitTimerLiveActivityExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ECF7EB922F1553A3001215E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF7EBA02F1553A5001215E9 /* Preview Assets.xcassets in Resources */,
+				ECF7EB9C2F1553A5001215E9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBA32F1553A5001215E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBAD2F1553A5001215E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBC42F15552D001215E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECF7EB902F1553A3001215E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF7EBFA2F157518001215E9 /* IntervalType.swift in Sources */,
+				ECF7EBF52F157518001215E9 /* AudioManager.swift in Sources */,
+				ECF7EC032F157518001215E9 /* ContentView.swift in Sources */,
+				ECF7EBF92F157518001215E9 /* TimerState.swift in Sources */,
+				ECF7EBFD2F157518001215E9 /* TimeFormatter.swift in Sources */,
+				ECF7EBFE2F157518001215E9 /* SetupView.swift in Sources */,
+				ECF7EBF82F157518001215E9 /* CircuitTimerApp.swift in Sources */,
+				ECF7EC012F157518001215E9 /* ControlButtonsView.swift in Sources */,
+				ECF7EBFF2F157518001215E9 /* TimerView.swift in Sources */,
+				ECF7EBFB2F157518001215E9 /* TimerConfiguration.swift in Sources */,
+				ECF7EC022F157518001215E9 /* TimeDisplayView.swift in Sources */,
+				ECF7EC042F157518001215E9 /* TimerViewModel.swift in Sources */,
+				ECF7EBF62F157518001215E9 /* LiveActivityManager.swift in Sources */,
+				ECF7EBF72F157518001215E9 /* TimerEngine.swift in Sources */,
+				ECF7EC002F157518001215E9 /* CircularProgressView.swift in Sources */,
+				ECF7EBFC2F157518001215E9 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBA12F1553A5001215E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF7EBAA2F1553A5001215E9 /* CircuitTimerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBAB2F1553A5001215E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF7EBB62F1553A5001215E9 /* CircuitTimerUITestsLaunchTests.swift in Sources */,
+				ECF7EBB42F1553A5001215E9 /* CircuitTimerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF7EBC22F15552D001215E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC94C7372F1A923800B54D1F /* TimerState.swift in Sources */,
+				EC94C7382F1A923800B54D1F /* IntervalType.swift in Sources */,
+				EC94C7392F1A923800B54D1F /* TimerConfiguration.swift in Sources */,
+				EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */,
+				EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */,
+				EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */,
+				ECF7EC0B2F157658001215E9 /* LiveActivityManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ECF7EBA72F1553A5001215E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECF7EB932F1553A3001215E9 /* CircuitTimer */;
+			targetProxy = ECF7EBA62F1553A5001215E9 /* PBXContainerItemProxy */;
+		};
+		ECF7EBB12F1553A5001215E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECF7EB932F1553A3001215E9 /* CircuitTimer */;
+			targetProxy = ECF7EBB02F1553A5001215E9 /* PBXContainerItemProxy */;
+		};
+		ECF7EBD72F15552F001215E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECF7EBC52F15552D001215E9 /* CircuitTimerLiveActivityExtension */;
+			targetProxy = ECF7EBD62F15552F001215E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ECF7EBB72F1553A5001215E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ECF7EBB82F1553A5001215E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		ECF7EBBA2F1553A5001215E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CircuitTimer/CircuitTimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CircuitTimer/Preview Content\"";
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ECF7EBBB2F1553A5001215E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CircuitTimer/CircuitTimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CircuitTimer/Preview Content\"";
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ECF7EBBD2F1553A5001215E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CircuitTimer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CircuitTimer";
+			};
+			name = Debug;
+		};
+		ECF7EBBE2F1553A5001215E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CircuitTimer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CircuitTimer";
+			};
+			name = Release;
+		};
+		ECF7EBC02F1553A5001215E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CircuitTimer;
+			};
+			name = Debug;
+		};
+		ECF7EBC12F1553A5001215E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CircuitTimer;
+			};
+			name = Release;
+		};
+		ECF7EBDA2F15552F001215E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer.CircuitTimerLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ECF7EBDB2F15552F001215E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39X9SCCPSV;
+				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer.CircuitTimerLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECF7EB8F2F1553A3001215E9 /* Build configuration list for PBXProject "CircuitTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECF7EBB72F1553A5001215E9 /* Debug */,
+				ECF7EBB82F1553A5001215E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECF7EBB92F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECF7EBBA2F1553A5001215E9 /* Debug */,
+				ECF7EBBB2F1553A5001215E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECF7EBBC2F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECF7EBBD2F1553A5001215E9 /* Debug */,
+				ECF7EBBE2F1553A5001215E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECF7EBBF2F1553A5001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECF7EBC02F1553A5001215E9 /* Debug */,
+				ECF7EBC12F1553A5001215E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECF7EBD92F15552F001215E9 /* Build configuration list for PBXNativeTarget "CircuitTimerLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECF7EBDA2F15552F001215E9 /* Debug */,
+				ECF7EBDB2F15552F001215E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECF7EB8C2F1553A3001215E9 /* Project object */;
+}
