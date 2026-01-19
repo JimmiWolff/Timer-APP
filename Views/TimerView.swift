@@ -15,64 +15,36 @@ struct TimerView: View {
 
     var body: some View {
         ZStack {
-            // Background color based on state
-            backgroundColor
+            // Animated gradient background based on state
+            Constants.Gradients.gradient(for: viewModel.state)
                 .ignoresSafeArea()
+                .animation(.easeInOut(duration: Constants.Animation.backgroundTransition), value: viewModel.state)
 
-            VStack(spacing: Constants.Layout.largeSpacing) {
+            VStack(spacing: 40) {
+                // Title
+                Text("The Wolff Timer")
+                    .font(.system(size: Constants.FontSize.timerTitle, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+
                 Spacer()
 
-                // State indicator (WORK, REST, etc.)
-                Text(viewModel.currentStateText)
-                    .font(.system(
-                        size: Constants.FontSize.mediumState,
-                        weight: .bold
-                    ))
-                    .foregroundColor(.white)
+                // State Badge with pulse animation
+                StateBadgeView(state: viewModel.state)
                     .accessibilityLabel("Current state: \(viewModel.currentStateText)")
                     .accessibilityIdentifier(Constants.Accessibility.stateLabel)
 
-                // Progress circle with time display
-                ZStack {
-                    CircularProgressView(
-                        progress: viewModel.progress,
-                        color: .white,
-                        lineWidth: Constants.Layout.progressLineWidth
-                    )
-                    .frame(
-                        width: Constants.Layout.progressCircleSize,
-                        height: Constants.Layout.progressCircleSize
-                    )
-
-                    TimeDisplayView(
-                        timeRemaining: viewModel.timeRemaining,
-                        color: .white
-                    )
-                }
-
-                // Set indicator (only show if multiple sets)
-                if viewModel.totalSets > 1 {
-                    Text("Set \(viewModel.currentSet) / \(viewModel.totalSets)")
-                        .font(.system(
-                            size: Constants.FontSize.roundIndicator + 2,
-                            weight: .bold
-                        ))
-                        .foregroundColor(.white.opacity(0.95))
-                        .accessibilityLabel("Set \(viewModel.currentSet) of \(viewModel.totalSets)")
-                        .padding(.bottom, 4)
-                }
-
-                // Round indicator (hide during rest between sets)
-                if viewModel.state != .restBetweenSets {
-                    Text("Round \(viewModel.currentRound) / \(viewModel.totalRounds)")
-                        .font(.system(
-                            size: Constants.FontSize.roundIndicator,
-                            weight: .medium
-                        ))
-                        .foregroundColor(.white.opacity(0.9))
-                        .accessibilityLabel("Round \(viewModel.currentRound) of \(viewModel.totalRounds)")
-                        .accessibilityIdentifier(Constants.Accessibility.roundLabel)
-                }
+                // Timer Display with integrated progress ring
+                GlassmorphicTimerDisplay(
+                    timeRemaining: viewModel.timeRemaining,
+                    progress: viewModel.progress,
+                    state: viewModel.state,
+                    currentRound: viewModel.currentRound,
+                    totalRounds: viewModel.totalRounds,
+                    currentSet: viewModel.currentSet,
+                    totalSets: viewModel.totalSets
+                )
 
                 Spacer()
 

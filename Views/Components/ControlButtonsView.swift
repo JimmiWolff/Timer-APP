@@ -84,26 +84,24 @@ struct ControlButton: View {
 
     var body: some View {
         Button(action: action) {
-            Group {
+            HStack(spacing: 12) {
                 if let icon = icon {
                     Image(systemName: icon)
-                        .font(.system(size: Constants.Layout.buttonIconSize))
-                } else if let label = label {
+                        .font(.system(size: Constants.Layout.buttonIconSize, weight: .semibold))
+                }
+                if let label = label {
                     Text(label)
                         .font(.system(
                             size: Constants.FontSize.buttonLabel,
-                            weight: .bold
+                            weight: .semibold
                         ))
                 }
             }
             .foregroundColor(.white)
-            .frame(
-                width: Constants.Layout.buttonSize,
-                height: Constants.Layout.buttonSize
-            )
-            .background(Color.white.opacity(0.2))
-            .clipShape(Circle())
+            .padding(.horizontal, Constants.Layout.buttonPaddingH)
+            .padding(.vertical, Constants.Layout.buttonPaddingV)
         }
+        .glassButton()
         .accessibilityLabel(accessibilityLabel)
         .accessibilityIdentifier(accessibilityIdentifier ?? "")
     }

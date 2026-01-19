@@ -34,168 +34,118 @@ struct SetupView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                // Work interval section
-                Section {
-                    HStack {
-                        Text("Minutes")
-                        Spacer()
-                        Picker("Work Minutes", selection: $workMinutes) {
-                            ForEach(0..<60) { minute in
-                                Text("\(minute)").tag(minute)
+            ZStack {
+                // Gradient background (idle state)
+                Constants.Gradients.idle
+                    .ignoresSafeArea()
+
+                VStack(spacing: 16) {
+                    // Title
+                    Text("The Wolff Timer")
+                        .font(.system(size: 36, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.top, 20)
+                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+
+                    // Configuration Panel (Glass Card) - Compact
+                    VStack(spacing: 12) {
+                        // Work & Rest Intervals (Side by Side)
+                        HStack(spacing: 16) {
+                            CompactConfigSection(title: "Work") {
+                                CompactTimePicker(
+                                    minutes: $workMinutes,
+                                    seconds: $workSeconds
+                                )
+                            }
+
+                            Divider()
+                                .background(Color.white.opacity(0.3))
+                                .frame(height: 90)
+
+                            CompactConfigSection(title: "Rest") {
+                                CompactTimePicker(
+                                    minutes: $restMinutes,
+                                    seconds: $restSeconds
+                                )
                             }
                         }
-                        .pickerStyle(.wheel)
-                        .frame(width: 100)
-                    }
 
-                    HStack {
-                        Text("Seconds")
-                        Spacer()
-                        Picker("Work Seconds", selection: $workSeconds) {
-                            ForEach(0..<60) { second in
-                                Text("\(second)").tag(second)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(width: 100)
-                    }
-                } header: {
-                    Text("Work Interval")
-                } footer: {
-                    Text("Duration of high-intensity work periods")
-                }
+                        Divider()
+                            .background(Color.white.opacity(0.3))
 
-                // Rest interval section
-                Section {
-                    HStack {
-                        Text("Minutes")
-                        Spacer()
-                        Picker("Rest Minutes", selection: $restMinutes) {
-                            ForEach(0..<60) { minute in
-                                Text("\(minute)").tag(minute)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(width: 100)
-                    }
-
-                    HStack {
-                        Text("Seconds")
-                        Spacer()
-                        Picker("Rest Seconds", selection: $restSeconds) {
-                            ForEach(0..<60) { second in
-                                Text("\(second)").tag(second)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(width: 100)
-                    }
-                } header: {
-                    Text("Rest Interval")
-                } footer: {
-                    Text("Duration of recovery periods between work intervals")
-                }
-
-                // Rounds section
-                Section {
-                    Picker("Number of Rounds", selection: $rounds) {
-                        ForEach(1...Constants.TimerLimits.maxRounds, id: \.self) { round in
-                            Text("\(round)").tag(round)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                } header: {
-                    Text("Rounds (per set)")
-                } footer: {
-                    Text("Number of work/rest cycles in each set")
-                }
-
-                // Sets section
-                Section {
-                    Picker("Number of Sets", selection: $sets) {
-                        ForEach(1...20, id: \.self) { set in
-                            Text("\(set)").tag(set)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                } header: {
-                    Text("Sets")
-                } footer: {
-                    Text("Total number of sets to complete")
-                }
-
-                // Rest between sets section (only show if multiple sets)
-                if sets > 1 {
-                    Section {
-                        HStack {
-                            Text("Minutes")
-                            Spacer()
-                            Picker("Rest Between Sets Minutes", selection: $restBetweenSetsMinutes) {
-                                ForEach(0..<60) { minute in
-                                    Text("\(minute)").tag(minute)
+                        // Rounds & Sets (Side by Side)
+                        HStack(spacing: 16) {
+                            CompactConfigSection(title: "Rounds") {
+                                Picker("Rounds", selection: $rounds) {
+                                    ForEach(1...Constants.TimerLimits.maxRounds, id: \.self) { round in
+                                        Text("\(round)").tag(round)
+                                    }
                                 }
+                                .pickerStyle(.wheel)
+                                .frame(width: 80, height: 80)
                             }
-                            .pickerStyle(.wheel)
-                            .frame(width: 100)
+
+                            Divider()
+                                .background(Color.white.opacity(0.3))
+                                .frame(height: 80)
+
+                            CompactConfigSection(title: "Sets") {
+                                Picker("Sets", selection: $sets) {
+                                    ForEach(1...20, id: \.self) { set in
+                                        Text("\(set)").tag(set)
+                                    }
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(width: 80, height: 80)
+                            }
                         }
+
+                        // Rest Between Sets (only if multiple sets)
+                        if sets > 1 {
+                            Divider()
+                                .background(Color.white.opacity(0.3))
+
+                            CompactConfigSection(title: "Rest Between Sets") {
+                                CompactTimePicker(
+                                    minutes: $restBetweenSetsMinutes,
+                                    seconds: $restBetweenSetsSeconds
+                                )
+                            }
+                        }
+
+                        // Total Workout Time
+                        Divider()
+                            .background(Color.white.opacity(0.3))
 
                         HStack {
-                            Text("Seconds")
+                            Text("Total Time")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
                             Spacer()
-                            Picker("Rest Between Sets Seconds", selection: $restBetweenSetsSeconds) {
-                                ForEach(0..<60) { second in
-                                    Text("\(second)").tag(second)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                            .frame(width: 100)
+                            Text(totalWorkoutTime)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.white.opacity(0.9))
                         }
-                    } header: {
-                        Text("Rest Between Sets")
-                    } footer: {
-                        Text("Recovery time between sets")
                     }
-                }
+                    .padding(20)
+                    .glassCard()
+                    .padding(.horizontal)
 
-                // Summary section
-                Section {
-                    HStack {
-                        Text("Total Workout Time")
-                        Spacer()
-                        Text(totalWorkoutTime)
-                            .foregroundColor(.secondary)
-                    }
-                } header: {
-                    Text("Summary")
-                }
+                    Spacer()
 
-                // Quick presets
-                Section {
-                    Button("Tabata (30s/10s × 8)") {
-                        setTabataPreset()
+                    // Start Button (Large, Prominent)
+                    Button(action: startWorkout) {
+                        Text("START WORKOUT")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
                     }
-
-                    Button("Intermediate (45s/15s × 10)") {
-                        setIntermediatePreset()
-                    }
-
-                    Button("Endurance (60s/30s × 6)") {
-                        setEndurancePreset()
-                    }
-                } header: {
-                    Text("Quick Presets")
-                }
-            }
-            .navigationTitle("The Wolff Timer")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Start") {
-                        startWorkout()
-                    }
+                    .glassButton()
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
                     .disabled(!isConfigurationValid)
-                    .bold()
+                    .opacity(isConfigurationValid ? 1.0 : 0.5)
                 }
             }
             .navigationDestination(isPresented: $navigateToTimer) {
@@ -272,6 +222,71 @@ struct SetupView: View {
         sets = 3
         restBetweenSetsMinutes = 2
         restBetweenSetsSeconds = 0
+    }
+}
+
+// MARK: - Helper Components
+
+/// Compact configuration section with title and content
+struct CompactConfigSection<Content: View>: View {
+    let title: String
+    let content: () -> Content
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text(title)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.white)
+            content()
+        }
+        .frame(maxWidth: .infinity)
+    }
+}
+
+/// Compact time picker component (minutes and seconds)
+struct CompactTimePicker: View {
+    @Binding var minutes: Int
+    @Binding var seconds: Int
+
+    var body: some View {
+        HStack(spacing: 12) {
+            // Minutes
+            VStack(spacing: 4) {
+                Text("MIN")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.7))
+                Picker("Minutes", selection: $minutes) {
+                    ForEach(0..<60) { minute in
+                        Text("\(minute)")
+                            .foregroundColor(.white)
+                            .tag(minute)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(width: 70, height: 80)
+            }
+
+            Text(":")
+                .font(.system(size: 28, weight: .bold))
+                .foregroundColor(.white)
+                .padding(.top, 16)
+
+            // Seconds
+            VStack(spacing: 4) {
+                Text("SEC")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.white.opacity(0.7))
+                Picker("Seconds", selection: $seconds) {
+                    ForEach(0..<60) { second in
+                        Text("\(second)")
+                            .foregroundColor(.white)
+                            .tag(second)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .frame(width: 70, height: 80)
+            }
+        }
     }
 }
 
