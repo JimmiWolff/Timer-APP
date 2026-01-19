@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */; };
 		EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */; };
 		EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */; };
 		EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundUpdateScheduler.swift; sourceTree = "<group>"; };
 		EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivityBundle.swift; sourceTree = "<group>"; };
 		EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivity.swift; sourceTree = "<group>"; };
 		EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseResumeIntent.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		ECF7EBDF2F157516001215E9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */,
 				ECF7EBE02F157516001215E9 /* AudioManager.swift */,
 				ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */,
 				ECF7EBE22F157516001215E9 /* TimerEngine.swift */,
@@ -454,6 +457,7 @@
 				ECF7EBFD2F157518001215E9 /* TimeFormatter.swift in Sources */,
 				ECF7EBFE2F157518001215E9 /* SetupView.swift in Sources */,
 				ECF7EBF82F157518001215E9 /* CircuitTimerApp.swift in Sources */,
+				EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */,
 				ECF7EC012F157518001215E9 /* ControlButtonsView.swift in Sources */,
 				ECF7EBFF2F157518001215E9 /* TimerView.swift in Sources */,
 				ECF7EBFB2F157518001215E9 /* TimerConfiguration.swift in Sources */,
@@ -809,7 +813,6 @@
 				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -837,7 +840,6 @@
 				DEVELOPMENT_TEAM = 39X9SCCPSV;
 				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
