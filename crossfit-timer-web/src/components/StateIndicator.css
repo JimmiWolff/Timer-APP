@@ -1,0 +1,43 @@
+.state-indicator {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.state-badge {
+  padding: 1rem 3rem;
+  min-width: 200px;
+  text-align: center;
+}
+
+.state-label {
+  font-size: var(--font-size-state);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pulsing animation for active states */
+.state-indicator.pulse .state-badge {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .state-badge {
+    padding: 0.75rem 2rem;
+    min-width: 150px;
+  }
+}
