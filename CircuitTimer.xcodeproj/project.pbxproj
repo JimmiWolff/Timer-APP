@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */; };
+		EC71EE322F1E851000020582 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE312F1E851000020582 /* ViewModifiers.swift */; };
+		EC71EE352F1E853500020582 /* StateBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE342F1E853500020582 /* StateBadgeView.swift */; };
+		EC71EE362F1E853500020582 /* GlassmorphicTimerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */; };
 		EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */; };
 		EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */; };
 		EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */; };
@@ -79,6 +83,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundUpdateScheduler.swift; sourceTree = "<group>"; };
+		EC71EE312F1E851000020582 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassmorphicTimerDisplay.swift; sourceTree = "<group>"; };
+		EC71EE342F1E853500020582 /* StateBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateBadgeView.swift; sourceTree = "<group>"; };
 		EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivityBundle.swift; sourceTree = "<group>"; };
 		EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivity.swift; sourceTree = "<group>"; };
 		EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseResumeIntent.swift; sourceTree = "<group>"; };
@@ -232,6 +240,7 @@
 		ECF7EBDF2F157516001215E9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */,
 				ECF7EBE02F157516001215E9 /* AudioManager.swift */,
 				ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */,
 				ECF7EBE22F157516001215E9 /* TimerEngine.swift */,
@@ -252,6 +261,7 @@
 		ECF7EBE82F157517001215E9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				EC71EE312F1E851000020582 /* ViewModifiers.swift */,
 				ECF7EBE92F157517001215E9 /* Constants.swift */,
 				ECF7EBEA2F157517001215E9 /* TimeFormatter.swift */,
 			);
@@ -272,6 +282,8 @@
 		ECF7EBEE2F157517001215E9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */,
+				EC71EE342F1E853500020582 /* StateBadgeView.swift */,
 				ECF7EBEF2F157517001215E9 /* CircularProgressView.swift */,
 				ECF7EBF02F157517001215E9 /* ControlButtonsView.swift */,
 				ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */,
@@ -450,10 +462,12 @@
 				ECF7EBFA2F157518001215E9 /* IntervalType.swift in Sources */,
 				ECF7EBF52F157518001215E9 /* AudioManager.swift in Sources */,
 				ECF7EC032F157518001215E9 /* ContentView.swift in Sources */,
+				EC71EE322F1E851000020582 /* ViewModifiers.swift in Sources */,
 				ECF7EBF92F157518001215E9 /* TimerState.swift in Sources */,
 				ECF7EBFD2F157518001215E9 /* TimeFormatter.swift in Sources */,
 				ECF7EBFE2F157518001215E9 /* SetupView.swift in Sources */,
 				ECF7EBF82F157518001215E9 /* CircuitTimerApp.swift in Sources */,
+				EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */,
 				ECF7EC012F157518001215E9 /* ControlButtonsView.swift in Sources */,
 				ECF7EBFF2F157518001215E9 /* TimerView.swift in Sources */,
 				ECF7EBFB2F157518001215E9 /* TimerConfiguration.swift in Sources */,
@@ -461,6 +475,8 @@
 				ECF7EC042F157518001215E9 /* TimerViewModel.swift in Sources */,
 				ECF7EBF62F157518001215E9 /* LiveActivityManager.swift in Sources */,
 				ECF7EBF72F157518001215E9 /* TimerEngine.swift in Sources */,
+				EC71EE352F1E853500020582 /* StateBadgeView.swift in Sources */,
+				EC71EE362F1E853500020582 /* GlassmorphicTimerDisplay.swift in Sources */,
 				ECF7EC002F157518001215E9 /* CircularProgressView.swift in Sources */,
 				ECF7EBFC2F157518001215E9 /* Constants.swift in Sources */,
 			);
@@ -809,7 +825,6 @@
 				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -837,7 +852,6 @@
 				DEVELOPMENT_TEAM = 39X9SCCPSV;
 				INFOPLIST_FILE = CircuitTimerLiveActivity/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CircuitTimerLiveActivity;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (

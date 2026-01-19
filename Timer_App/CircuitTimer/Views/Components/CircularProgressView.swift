@@ -20,15 +20,14 @@ struct CircularProgressView: View {
 
     var body: some View {
         ZStack {
-            // Background ring (dimmed) with glass effect
+            // Background ring (dimmed)
             Circle()
                 .stroke(
-                    color.opacity(0.2),
+                    color.opacity(0.3),
                     lineWidth: lineWidth
                 )
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
 
-            // Progress ring (filled based on progress) with glow
+            // Progress ring (filled based on progress)
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
@@ -38,9 +37,8 @@ struct CircularProgressView: View {
                         lineCap: .round
                     )
                 )
-                .shadow(color: color.opacity(0.5), radius: 8, x: 0, y: 0)
                 .rotationEffect(.degrees(-90)) // Start from top
-                .animation(.linear(duration: Constants.Animation.progressUpdate), value: progress)
+                .animation(.linear(duration: 0.1), value: progress)
         }
     }
 }

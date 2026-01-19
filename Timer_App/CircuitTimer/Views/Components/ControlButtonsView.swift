@@ -52,7 +52,7 @@ struct ControlButtonsView: View {
                     accessibilityIdentifier: Constants.Accessibility.resetButton
                 )
 
-            case .work, .rest, .restBetweenSets:
+            case .work, .rest:
                 // Show pause button
                 ControlButton(
                     icon: "pause.fill",
@@ -84,24 +84,26 @@ struct ControlButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 12) {
+            Group {
                 if let icon = icon {
                     Image(systemName: icon)
-                        .font(.system(size: Constants.Layout.buttonIconSize, weight: .semibold))
-                }
-                if let label = label {
+                        .font(.system(size: Constants.Layout.buttonIconSize))
+                } else if let label = label {
                     Text(label)
                         .font(.system(
                             size: Constants.FontSize.buttonLabel,
-                            weight: .semibold
+                            weight: .bold
                         ))
                 }
             }
             .foregroundColor(.white)
-            .padding(.horizontal, Constants.Layout.buttonPaddingH)
-            .padding(.vertical, Constants.Layout.buttonPaddingV)
+            .frame(
+                width: Constants.Layout.buttonSize,
+                height: Constants.Layout.buttonSize
+            )
+            .background(Color.white.opacity(0.2))
+            .clipShape(Circle())
         }
-        .glassButton()
         .accessibilityLabel(accessibilityLabel)
         .accessibilityIdentifier(accessibilityIdentifier ?? "")
     }

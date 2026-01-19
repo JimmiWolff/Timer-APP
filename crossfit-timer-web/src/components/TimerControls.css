@@ -1,0 +1,75 @@
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.control-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.control-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+}
+
+.control-btn:active {
+  transform: scale(0.98);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn:disabled:hover {
+  transform: scale(1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Specific button styles */
+.start-btn:hover,
+.resume-btn:hover {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.pause-btn:hover {
+  background: rgba(255, 152, 0, 0.3);
+}
+
+.reset-btn:hover {
+  background: rgba(244, 67, 54, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .control-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    min-width: 120px;
+  }
+
+  .control-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}

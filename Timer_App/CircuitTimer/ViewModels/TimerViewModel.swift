@@ -402,7 +402,7 @@ class TimerViewModel: ObservableObject {
         if #available(iOS 16.1, *) {
             Task {
                 await liveActivityManager?.endLiveActivity(
-                    dismissalPolicy: .after(Date().addingTimeInterval(10))
+                    dismissalPolicy: .after(.seconds(10))
                 )
             }
         }
