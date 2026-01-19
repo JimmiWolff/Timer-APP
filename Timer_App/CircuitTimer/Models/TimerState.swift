@@ -18,6 +18,9 @@ enum TimerState: String, Codable, Hashable {
     /// Rest interval is active
     case rest
 
+    /// Rest between sets is active
+    case restBetweenSets
+
     /// Timer is paused (can resume to work or rest)
     case paused
 
@@ -33,6 +36,8 @@ enum TimerState: String, Codable, Hashable {
             return "WORK"
         case .rest:
             return "REST"
+        case .restBetweenSets:
+            return "REST BETWEEN SETS"
         case .paused:
             return "PAUSED"
         case .finished:
@@ -42,12 +47,12 @@ enum TimerState: String, Codable, Hashable {
 
     /// Whether the timer is currently running
     var isActive: Bool {
-        return self == .work || self == .rest
+        return self == .work || self == .rest || self == .restBetweenSets
     }
 
     /// Whether the timer can be paused
     var canPause: Bool {
-        return self == .work || self == .rest
+        return self == .work || self == .rest || self == .restBetweenSets
     }
 
     /// Whether the timer can be resumed

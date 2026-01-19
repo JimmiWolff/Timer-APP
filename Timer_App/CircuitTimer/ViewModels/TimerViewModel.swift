@@ -28,6 +28,9 @@ class TimerViewModel: ObservableObject {
     /// Current round number (1-indexed)
     @Published var currentRound: Int = 1
 
+    /// Current set number (1-indexed)
+    @Published var currentSet: Int = 1
+
     /// Progress of current interval (0.0 to 1.0)
     @Published var progress: Double = 0.0
 
@@ -50,6 +53,11 @@ class TimerViewModel: ObservableObject {
     /// Total number of rounds
     var totalRounds: Int {
         config?.rounds ?? 0
+    }
+
+    /// Total number of sets
+    var totalSets: Int {
+        config?.sets ?? 1
     }
 
     /// Current interval type
@@ -102,6 +110,7 @@ class TimerViewModel: ObservableObject {
         // Initialize state
         state = .work
         currentRound = 1
+        currentSet = 1
         stateBeforePause = .work
 
         // Start first work interval
@@ -188,6 +197,7 @@ class TimerViewModel: ObservableObject {
         // Reset state
         state = .idle
         currentRound = 1
+        currentSet = 1
         timeRemaining = 0
         progress = 0.0
 
@@ -238,9 +248,17 @@ class TimerViewModel: ObservableObject {
         timeRemaining = timerEngine.timeRemaining()
 
         // Update progress
-        let totalDuration = state == .work ?
-            TimeInterval(config.workTime) :
-            TimeInterval(config.restTime)
+        let totalDuration: TimeInterval
+        switch state {
+        case .work:
+            totalDuration = TimeInterval(config.workTime)
+        case .rest:
+            totalDuration = TimeInterval(config.restTime)
+        case .restBetweenSets:
+            totalDuration = TimeInterval(config.restBetweenSets)
+        default:
+            totalDuration = 0
+        }
         progress = timerEngine.progress(totalDuration: totalDuration)
 
         // Check for state transitions
@@ -256,25 +274,85 @@ class TimerViewModel: ObservableObject {
         switch state {
         case .work:
             // Work → Rest
-            state = .rest
-            stateBeforePause = .rest
-            timerEngine.startInterval(duration: TimeInterval(config.restTime))
-            audioManager.playBeep(.restStart)
+            if config.restTime > 0 {
+                state = .rest
+                stateBeforePause = .rest
+                timerEngine.startInterval(duration: TimeInterval(config.restTime))
+                audioManager.playBeep(.restStart)
+            } else {
+                // No rest period, go to next round or check for set completion
+                if currentRound < config.rounds {
+                    currentRound += 1
+                    state = .work
+                    stateBeforePause = .work
+                    timerEngine.startInterval(duration: TimeInterval(config.workTime))
+                    audioManager.playBeep(.workStart)
+                } else {
+                    // Last round of set completed, check for next set
+                    if currentSet < config.sets {
+                        if config.restBetweenSets > 0 {
+                            state = .restBetweenSets
+                            stateBeforePause = .restBetweenSets
+                            timerEngine.startInterval(duration: TimeInterval(config.restBetweenSets))
+                            audioManager.playBeep(.restStart)
+                        } else {
+                            // No rest between sets, start next set immediately
+                            currentSet += 1
+                            currentRound = 1
+                            state = .work
+                            stateBeforePause = .work
+                            timerEngine.startInterval(duration: TimeInterval(config.workTime))
+                            audioManager.playBeep(.workStart)
+                        }
+                    } else {
+                        // All sets completed
+                        completeWorkout()
+                        return
+                    }
+                }
+            }
 
         case .rest:
-            // Rest → Work (next round) or Finished
+            // Rest → Work (next round) or check for set completion
             if currentRound < config.rounds {
-                // Next round
+                // More rounds in this set
                 currentRound += 1
                 state = .work
                 stateBeforePause = .work
                 timerEngine.startInterval(duration: TimeInterval(config.workTime))
                 audioManager.playBeep(.workStart)
             } else {
-                // Workout complete
-                completeWorkout()
-                return
+                // Last round of set completed, check for next set
+                if currentSet < config.sets {
+                    if config.restBetweenSets > 0 {
+                        state = .restBetweenSets
+                        stateBeforePause = .restBetweenSets
+                        timerEngine.startInterval(duration: TimeInterval(config.restBetweenSets))
+                        audioManager.playBeep(.restStart)
+                    } else {
+                        // No rest between sets, start next set immediately
+                        currentSet += 1
+                        currentRound = 1
+                        state = .work
+                        stateBeforePause = .work
+                        timerEngine.startInterval(duration: TimeInterval(config.workTime))
+                        audioManager.playBeep(.workStart)
+                    }
+                } else {
+                    // All sets completed
+                    completeWorkout()
+                    return
+                }
             }
+
+        case .restBetweenSets:
+            // Transition to first round of next set
+            currentSet += 1
+            currentRound = 1
+            state = .work
+            stateBeforePause = .work
+            timerEngine.startInterval(duration: TimeInterval(config.workTime))
+            audioManager.playBeep(.workStart)
 
         default:
             break

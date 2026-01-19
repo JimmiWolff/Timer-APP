@@ -50,15 +50,29 @@ struct TimerView: View {
                     )
                 }
 
-                // Round indicator
-                Text("Round \(viewModel.currentRound) / \(viewModel.totalRounds)")
-                    .font(.system(
-                        size: Constants.FontSize.roundIndicator,
-                        weight: .medium
-                    ))
-                    .foregroundColor(.white.opacity(0.9))
-                    .accessibilityLabel("Round \(viewModel.currentRound) of \(viewModel.totalRounds)")
-                    .accessibilityIdentifier(Constants.Accessibility.roundLabel)
+                // Set indicator (only show if multiple sets)
+                if viewModel.totalSets > 1 {
+                    Text("Set \(viewModel.currentSet) / \(viewModel.totalSets)")
+                        .font(.system(
+                            size: Constants.FontSize.roundIndicator + 2,
+                            weight: .bold
+                        ))
+                        .foregroundColor(.white.opacity(0.95))
+                        .accessibilityLabel("Set \(viewModel.currentSet) of \(viewModel.totalSets)")
+                        .padding(.bottom, 4)
+                }
+
+                // Round indicator (hide during rest between sets)
+                if viewModel.state != .restBetweenSets {
+                    Text("Round \(viewModel.currentRound) / \(viewModel.totalRounds)")
+                        .font(.system(
+                            size: Constants.FontSize.roundIndicator,
+                            weight: .medium
+                        ))
+                        .foregroundColor(.white.opacity(0.9))
+                        .accessibilityLabel("Round \(viewModel.currentRound) of \(viewModel.totalRounds)")
+                        .accessibilityIdentifier(Constants.Accessibility.roundLabel)
+                }
 
                 Spacer()
 

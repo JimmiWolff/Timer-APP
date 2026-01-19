@@ -15,28 +15,40 @@ struct TimerConfiguration: Codable, Hashable {
     /// Rest interval duration in seconds
     let restTime: Int
 
-    /// Total number of rounds
+    /// Total number of rounds per set
     let rounds: Int
+
+    /// Total number of sets
+    let sets: Int
+
+    /// Rest duration between sets in seconds
+    let restBetweenSets: Int
 
     /// Initialize a timer configuration
     /// - Parameters:
     ///   - workTime: Duration of work intervals in seconds
     ///   - restTime: Duration of rest intervals in seconds
-    ///   - rounds: Total number of rounds to complete
-    init(workTime: Int, restTime: Int, rounds: Int) {
+    ///   - rounds: Total number of rounds per set
+    ///   - sets: Total number of sets (default: 1)
+    ///   - restBetweenSets: Rest duration between sets in seconds (default: 0)
+    init(workTime: Int, restTime: Int, rounds: Int, sets: Int = 1, restBetweenSets: Int = 0) {
         self.workTime = workTime
         self.restTime = restTime
         self.rounds = rounds
+        self.sets = sets
+        self.restBetweenSets = restBetweenSets
     }
 
     /// Check if configuration is valid
     var isValid: Bool {
-        return workTime > 0 && restTime > 0 && rounds > 0
+        return workTime > 0 && restTime > 0 && rounds > 0 && sets > 0
     }
 
-    /// Total workout duration in seconds (excludes rest after final round)
+    /// Total workout duration in seconds (includes rest between sets, excludes rest after final round)
     var totalDuration: Int {
-        return (workTime + restTime) * rounds - restTime
+        let durationPerSet = (workTime + restTime) * rounds - restTime
+        let totalRestBetweenSets = restBetweenSets * (sets - 1)
+        return durationPerSet * sets + totalRestBetweenSets
     }
 }
 

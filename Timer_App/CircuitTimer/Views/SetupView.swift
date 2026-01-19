@@ -22,6 +22,13 @@ struct SetupView: View {
     // Rounds
     @State private var rounds = 8
 
+    // Sets
+    @State private var sets = 1
+
+    // Rest between sets
+    @State private var restBetweenSetsMinutes = 0
+    @State private var restBetweenSetsSeconds = 0
+
     // Navigation
     @State private var navigateToTimer = false
 
@@ -99,9 +106,56 @@ struct SetupView: View {
                     }
                     .pickerStyle(.wheel)
                 } header: {
-                    Text("Rounds")
+                    Text("Rounds (per set)")
                 } footer: {
-                    Text("Total number of work/rest cycles")
+                    Text("Number of work/rest cycles in each set")
+                }
+
+                // Sets section
+                Section {
+                    Picker("Number of Sets", selection: $sets) {
+                        ForEach(1...20, id: \.self) { set in
+                            Text("\(set)").tag(set)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                } header: {
+                    Text("Sets")
+                } footer: {
+                    Text("Total number of sets to complete")
+                }
+
+                // Rest between sets section (only show if multiple sets)
+                if sets > 1 {
+                    Section {
+                        HStack {
+                            Text("Minutes")
+                            Spacer()
+                            Picker("Rest Between Sets Minutes", selection: $restBetweenSetsMinutes) {
+                                ForEach(0..<60) { minute in
+                                    Text("\(minute)").tag(minute)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(width: 100)
+                        }
+
+                        HStack {
+                            Text("Seconds")
+                            Spacer()
+                            Picker("Rest Between Sets Seconds", selection: $restBetweenSetsSeconds) {
+                                ForEach(0..<60) { second in
+                                    Text("\(second)").tag(second)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(width: 100)
+                        }
+                    } header: {
+                        Text("Rest Between Sets")
+                    } footer: {
+                        Text("Recovery time between sets")
+                    }
                 }
 
                 // Summary section
@@ -133,7 +187,7 @@ struct SetupView: View {
                     Text("Quick Presets")
                 }
             }
-            .navigationTitle("Circuit Timer")
+            .navigationTitle("The Wolff Timer")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -175,7 +229,9 @@ struct SetupView: View {
         let config = TimerConfiguration(
             workTime: workMinutes * 60 + workSeconds,
             restTime: restMinutes * 60 + restSeconds,
-            rounds: rounds
+            rounds: rounds,
+            sets: sets,
+            restBetweenSets: restBetweenSetsMinutes * 60 + restBetweenSetsSeconds
         )
 
         viewModel.configure(config)
@@ -189,6 +245,9 @@ struct SetupView: View {
         restMinutes = 0
         restSeconds = 10
         rounds = 8
+        sets = 1
+        restBetweenSetsMinutes = 0
+        restBetweenSetsSeconds = 0
     }
 
     /// Set intermediate preset
@@ -198,6 +257,9 @@ struct SetupView: View {
         restMinutes = 0
         restSeconds = 15
         rounds = 10
+        sets = 1
+        restBetweenSetsMinutes = 0
+        restBetweenSetsSeconds = 0
     }
 
     /// Set endurance preset
@@ -207,6 +269,9 @@ struct SetupView: View {
         restMinutes = 0
         restSeconds = 30
         rounds = 6
+        sets = 3
+        restBetweenSetsMinutes = 2
+        restBetweenSetsSeconds = 0
     }
 }
 
