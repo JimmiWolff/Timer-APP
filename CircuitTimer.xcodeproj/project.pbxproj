@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3917068E99C48DB991DFCC4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 671CF24260F641A99E88910F /* PrivacyInfo.xcprivacy */; };
 		EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */; };
 		EC71EE322F1E851000020582 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE312F1E851000020582 /* ViewModifiers.swift */; };
 		EC71EE352F1E853500020582 /* StateBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE342F1E853500020582 /* StateBadgeView.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		671CF24260F641A99E88910F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundUpdateScheduler.swift; sourceTree = "<group>"; };
 		EC71EE312F1E851000020582 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassmorphicTimerDisplay.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */,
 				ECF7EB9D2F1553A5001215E9 /* CircuitTimer.entitlements */,
 				ECF7EB9E2F1553A5001215E9 /* Preview Content */,
+				671CF24260F641A99E88910F /* PrivacyInfo.xcprivacy */,
 			);
 			path = CircuitTimer;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3917068E99C48DB991DFCC4 /* PrivacyInfo.xcprivacy in Resources */,
 				ECF7EBA02F1553A5001215E9 /* Preview Assets.xcassets in Resources */,
 				ECF7EB9C2F1553A5001215E9 /* Assets.xcassets in Resources */,
 			);

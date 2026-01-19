@@ -57,7 +57,7 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 
 If you have any questions about this Privacy Policy, please contact:
 
-**Email:** [Your Email Address]
+**Email:** timer.wolff@gmail.com
 **GitHub:** https://github.com/JimmiWolff/Timer-APP
 
 ## Your Rights
