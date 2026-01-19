@@ -139,7 +139,7 @@ class LiveActivityManager {
 
     /// End the current Live Activity
     /// - Parameter dismissalPolicy: When to dismiss (default: after 10 seconds)
-    func endLiveActivity(dismissalPolicy: ActivityUIDismissalPolicy = .after(.seconds(10))) async {
+    func endLiveActivity(dismissalPolicy: ActivityUIDismissalPolicy = .after(Date().addingTimeInterval(10))) async {
         guard let activity = activity else {
             print("LiveActivityManager: No active Live Activity to end")
             return
