@@ -19,6 +19,9 @@ enum Constants {
         /// Rest interval color (calming red)
         static let rest = Color(red: 0.9, green: 0.3, blue: 0.2)
 
+        /// Rest between sets color (deeper blue)
+        static let restBetweenSets = Color(red: 0.2, green: 0.4, blue: 0.9)
+
         /// Paused state color (warning orange)
         static let paused = Color(red: 1.0, green: 0.6, blue: 0.0)
 
@@ -166,6 +169,8 @@ extension Color {
             return Constants.Colors.work
         case .rest:
             return Constants.Colors.rest
+        case .restBetweenSets:
+            return Constants.Colors.restBetweenSets
         case .paused:
             return Constants.Colors.paused
         case .finished:

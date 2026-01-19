@@ -77,12 +77,20 @@ class LiveActivityManager {
         )
 
         do {
-            // Request Live Activity
-            activity = try Activity.request(
-                attributes: attributes,
-                contentState: contentState,
-                pushType: nil
-            )
+            // Request Live Activity (using iOS 16.2+ API for better reliability)
+            if #available(iOS 16.2, *) {
+                activity = try Activity.request(
+                    attributes: attributes,
+                    content: ActivityContent(state: contentState, staleDate: nil),
+                    pushType: nil
+                )
+            } else {
+                activity = try Activity.request(
+                    attributes: attributes,
+                    contentState: contentState,
+                    pushType: nil
+                )
+            }
 
             print("LiveActivityManager: Started Live Activity")
         } catch {
@@ -119,8 +127,13 @@ class LiveActivityManager {
             isPaused: isPaused
         )
 
-        // Update the activity
-        await activity.update(using: contentState)
+        // Update the activity (using iOS 16.2+ API for better reliability)
+        if #available(iOS 16.2, *) {
+            await activity.update(ActivityContent(state: contentState, staleDate: nil))
+        } else {
+            await activity.update(using: contentState)
+        }
+
         print("LiveActivityManager: Updated Live Activity")
     }
 
@@ -132,9 +145,14 @@ class LiveActivityManager {
             return
         }
 
-        // End with final content state
-        let finalState = activity.contentState
-        await activity.end(using: finalState, dismissalPolicy: dismissalPolicy)
+        // End with final content state (using iOS 16.2+ API)
+        if #available(iOS 16.2, *) {
+            let finalState = activity.content.state
+            await activity.end(ActivityContent(state: finalState, staleDate: nil), dismissalPolicy: dismissalPolicy)
+        } else {
+            let finalState = activity.contentState
+            await activity.end(using: finalState, dismissalPolicy: dismissalPolicy)
+        }
 
         self.activity = nil
         print("LiveActivityManager: Ended Live Activity")
