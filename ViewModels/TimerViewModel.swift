@@ -270,6 +270,20 @@ class TimerViewModel: ObservableObject {
         // Update UI with current state
         updateState()
 
+        // Force update Live Activity with current state after sync
+        // This ensures the countdown shows correctly after returning from background
+        if #available(iOS 16.1, *) {
+            Task {
+                await liveActivityManager?.updateLiveActivity(
+                    currentState: state,
+                    currentRound: currentRound,
+                    totalRounds: totalRounds,
+                    intervalEndDate: timerEngine.intervalEndDate ?? Date(),
+                    isPaused: state == .paused
+                )
+            }
+        }
+
         print("TimerViewModel: Synchronized state - \(state), round \(currentRound)/\(totalRounds)")
     }
 

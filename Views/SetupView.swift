@@ -168,7 +168,15 @@ struct SetupView: View {
     private var totalWorkoutTime: String {
         let workTime = workMinutes * 60 + workSeconds
         let restTime = restMinutes * 60 + restSeconds
-        let totalSeconds = (workTime + restTime) * rounds - restTime
+        let restBetweenSets = restBetweenSetsMinutes * 60 + restBetweenSetsSeconds
+
+        // Duration per set: work+rest for each round, minus rest after final round
+        let durationPerSet = (workTime + restTime) * rounds - restTime
+        // Total rest between sets (sets - 1 rest periods)
+        let totalRestBetweenSets = restBetweenSets * (sets - 1)
+        // Total workout time
+        let totalSeconds = durationPerSet * sets + totalRestBetweenSets
+
         return TimeInterval(totalSeconds).asCompact
     }
 
