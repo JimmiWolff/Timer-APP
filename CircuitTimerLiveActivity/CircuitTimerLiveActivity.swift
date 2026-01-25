@@ -41,12 +41,22 @@ struct CircuitTimerLiveActivity: Widget {
 
             Spacer()
 
-            // Center: Countdown timer
-            Text(context.state.intervalEndDate, style: .timer)
-                .font(.system(.title, design: .rounded))
-                .fontWeight(.bold)
-                .monospacedDigit()
-                .foregroundColor(.primary)
+            // Center: Countdown timer (static when paused)
+            if context.state.isPaused {
+                // Show static time when paused
+                Text(formatTimeRemaining(context.state.intervalEndDate))
+                    .font(.system(.title, design: .rounded))
+                    .fontWeight(.bold)
+                    .monospacedDigit()
+                    .foregroundColor(.orange)
+            } else {
+                // Show live countdown when running
+                Text(context.state.intervalEndDate, style: .timer)
+                    .font(.system(.title, design: .rounded))
+                    .fontWeight(.bold)
+                    .monospacedDigit()
+                    .foregroundColor(.primary)
+            }
 
             Spacer()
 
@@ -82,10 +92,18 @@ struct CircuitTimerLiveActivity: Widget {
             }
 
             DynamicIslandExpandedRegion(.trailing) {
-                Text(context.state.intervalEndDate, style: .timer)
-                    .font(.system(.title2, design: .rounded))
-                    .fontWeight(.bold)
-                    .monospacedDigit()
+                if context.state.isPaused {
+                    Text(formatTimeRemaining(context.state.intervalEndDate))
+                        .font(.system(.title2, design: .rounded))
+                        .fontWeight(.bold)
+                        .monospacedDigit()
+                        .foregroundColor(.orange)
+                } else {
+                    Text(context.state.intervalEndDate, style: .timer)
+                        .font(.system(.title2, design: .rounded))
+                        .fontWeight(.bold)
+                        .monospacedDigit()
+                }
             }
 
             DynamicIslandExpandedRegion(.bottom) {
@@ -110,10 +128,15 @@ struct CircuitTimerLiveActivity: Widget {
 
         } compactTrailing: {
             // Compact trailing (right pill)
-            Text(context.state.intervalEndDate, style: .timer)
-                .font(.caption2)
-                .monospacedDigit()
-                .frame(width: 40)
+            if context.state.isPaused {
+                Image(systemName: "pause.fill")
+                    .foregroundColor(.orange)
+            } else {
+                Text(context.state.intervalEndDate, style: .timer)
+                    .font(.caption2)
+                    .monospacedDigit()
+                    .frame(width: 40)
+            }
 
         } minimal: {
             // Minimal (when multiple activities)
@@ -172,6 +195,14 @@ struct CircuitTimerLiveActivity: Widget {
         let elapsed = totalDuration - remaining
 
         return min(1.0, max(0.0, elapsed / totalDuration))
+    }
+
+    /// Format time remaining as MM:SS for static display when paused
+    private func formatTimeRemaining(_ endDate: Date) -> String {
+        let remaining = max(0, endDate.timeIntervalSinceNow)
+        let minutes = Int(remaining) / 60
+        let seconds = Int(remaining) % 60
+        return String(format: "%d:%02d", minutes, seconds)
     }
 }
 

@@ -50,8 +50,8 @@ struct PulseAnimationModifier: ViewModifier {
                     isPulsing = true
                 }
             }
-            .onChange(of: isActive) { newValue in
-                isPulsing = newValue
+            .onChange(of: isActive) {
+                isPulsing = isActive
             }
     }
 }

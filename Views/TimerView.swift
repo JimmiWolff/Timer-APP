@@ -83,10 +83,17 @@ struct TimerView: View {
             handleScenePhaseChange(newPhase)
         }
         .onAppear {
+            // Start observing widget commands
+            viewModel.startObservingWidgetCommands()
+
             // Start the workout when view appears
             if viewModel.state == .idle {
                 viewModel.start()
             }
+        }
+        .onDisappear {
+            // Stop observing when leaving timer view
+            viewModel.stopObservingWidgetCommands()
         }
         .accessibilityIdentifier(Constants.Accessibility.timerView)
     }
@@ -105,13 +112,16 @@ struct TimerView: View {
     private func handleScenePhaseChange(_ phase: ScenePhase) {
         switch phase {
         case .active:
-            // App came to foreground - synchronize state
-            print("TimerView: App active, synchronizing state")
+            // App came to foreground - synchronize state and restart widget command observation
+            print("TimerView: App active, synchronizing state and restarting command observation")
             viewModel.synchronizeState()
+            // Restart observing (this also checks for pending commands immediately)
+            viewModel.startObservingWidgetCommands()
 
         case .background:
-            // App went to background - timer continues via date calculations
-            print("TimerView: App backgrounded")
+            // App went to background - keep polling active for when app is still running
+            // iOS will suspend us eventually, but we can still process commands until then
+            print("TimerView: App backgrounded (polling continues)")
 
         case .inactive:
             // Transitional state

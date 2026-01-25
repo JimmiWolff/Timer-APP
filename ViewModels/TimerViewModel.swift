@@ -147,7 +147,11 @@ class TimerViewModel: ObservableObject {
 
     /// Pause the timer
     func pause() {
-        guard state.canPause else { return }
+        print("TimerViewModel: pause() called - state before: \(state)")
+        guard state.canPause else {
+            print("TimerViewModel: pause() - cannot pause, state is \(state)")
+            return
+        }
 
         // Store state before pausing
         stateBeforePause = state
@@ -155,8 +159,13 @@ class TimerViewModel: ObservableObject {
         // Pause timer engine
         timerEngine.pause()
 
+        // Cancel scheduled wake-up notifications (they're no longer valid)
+        BackgroundUpdateScheduler.shared.cancelAllWakeUps()
+        print("TimerViewModel: pause() - cancelled scheduled notifications")
+
         // Update state
         state = .paused
+        print("TimerViewModel: pause() - state now: \(state), timer engine paused")
 
         // Update Live Activity
         if #available(iOS 16.1, *) {
@@ -174,13 +183,35 @@ class TimerViewModel: ObservableObject {
 
     /// Resume from paused state
     func resume() {
-        guard state.canResume else { return }
+        print("TimerViewModel: resume() called - state before: \(state)")
+        guard state.canResume else {
+            print("TimerViewModel: resume() - cannot resume, state is \(state)")
+            return
+        }
 
         // Restore previous state
         state = stateBeforePause
 
         // Resume timer engine
         timerEngine.resume()
+        let freshTimeRemaining = timerEngine.timeRemaining()
+        print("TimerViewModel: resume() - state now: \(state), timer engine resumed, timeRemaining: \(freshTimeRemaining)s")
+
+        // Reschedule background wake-ups from current point
+        // Use freshTimeRemaining from engine, not cached timeRemaining property
+        if let config = config {
+            BackgroundUpdateScheduler.shared.scheduleRemainingWakeUps(
+                timeRemainingInInterval: freshTimeRemaining,
+                currentState: state.displayName,
+                currentRound: currentRound,
+                currentSet: currentSet,
+                workDuration: config.workTime,
+                restDuration: config.restTime,
+                rounds: config.rounds,
+                sets: config.sets,
+                restBetweenSets: config.restBetweenSets
+            )
+        }
 
         // Update Live Activity
         if #available(iOS 16.1, *) {
@@ -410,20 +441,46 @@ class TimerViewModel: ObservableObject {
         print("TimerViewModel: Workout complete!")
     }
 
-    /// Setup observer for pause/resume from Live Activity
+    /// Setup observer for pause/resume from Live Activity via App Groups
     private func setupPauseResumeObserver() {
-        pauseResumeObserver = NotificationCenter.default
-            .publisher(for: .pauseResumeTimer)
-            .sink { [weak self] _ in
-                Task { @MainActor in
-                    guard let self = self else { return }
-                    if self.state.canPause {
-                        self.pause()
-                    } else if self.state.canResume {
-                        self.resume()
-                    }
+        // Subscribe to SharedDataManager's pause/resume publisher
+        // This uses App Groups for cross-process communication from widget extension
+        pauseResumeObserver = SharedDataManager.shared.pauseResumePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else {
+                    print("TimerViewModel: Pause/Resume received but self is nil")
+                    return
+                }
+                print("TimerViewModel: Pause/Resume command received - current state: \(self.state), canPause: \(self.state.canPause), canResume: \(self.state.canResume)")
+                if self.state.canPause {
+                    print("TimerViewModel: Calling pause()")
+                    self.pause()
+                } else if self.state.canResume {
+                    print("TimerViewModel: Calling resume()")
+                    self.resume()
+                } else {
+                    print("TimerViewModel: Cannot pause or resume in current state")
                 }
             }
+    }
+
+    /// Start observing for commands from widget extension
+    /// Call this when the timer view appears
+    func startObservingWidgetCommands() {
+        SharedDataManager.shared.startObserving()
+    }
+
+    /// Stop observing for commands from widget extension
+    /// Call this when the timer view disappears
+    func stopObservingWidgetCommands() {
+        SharedDataManager.shared.stopObserving()
+    }
+
+    /// Check for pending commands from widget extension
+    /// Call this when the app becomes active to catch commands from while suspended
+    func checkPendingWidgetCommands() {
+        SharedDataManager.shared.checkPendingCommands()
     }
 
     // MARK: - Computed Properties for UI
@@ -451,8 +508,3 @@ class TimerViewModel: ObservableObject {
     }
 }
 
-// MARK: - Notification Names
-extension Notification.Name {
-    /// Notification posted when pause/resume button tapped on Live Activity
-    static let pauseResumeTimer = Notification.Name("pauseResumeTimer")
-}
