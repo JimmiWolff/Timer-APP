@@ -11,6 +11,26 @@ CircuitTimer is a native iOS circuit training timer app built with SwiftUI. It f
 - **Audio ducking**: AVAudioSession with `.playback + .duckOthers` to lower other apps' volume during beeps
 - **Live Activities**: ActivityKit integration for Lock Screen and Dynamic Island display
 
+## Git Workflow
+
+**IMPORTANT: Always develop on a feature branch, never directly on main.**
+
+Before starting any code changes:
+1. Create a new branch: `git checkout -b feature/<descriptive-name>` or `fix/<descriptive-name>`
+2. Make changes and commit incrementally
+3. Only merge to main after user confirms testing is complete
+4. Push the branch for backup: `git push -u origin <branch-name>`
+
+Example workflow:
+```bash
+git checkout -b fix/pause-resume-sync
+# ... make changes ...
+git add . && git commit -m "Fix pause/resume notification sync"
+# ... user tests and confirms ...
+git checkout main && git merge fix/pause-resume-sync
+git push origin main
+```
+
 ## Build Commands
 
 ```bash
