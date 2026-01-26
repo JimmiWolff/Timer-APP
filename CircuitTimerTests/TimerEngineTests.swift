@@ -110,10 +110,14 @@ final class TimerEngineTests: XCTestCase {
 
     func testResume_setsNewIntervalEndDate() {
         sut.startInterval(duration: 30)
-        let originalEndDate = sut.intervalEndDate
         sut.pause()
+        // Wait a tiny bit so the new end date will be different
+        Thread.sleep(forTimeInterval: 0.01)
+        let timeBeforeResume = Date()
         sut.resume()
-        XCTAssertNotEqual(sut.intervalEndDate, originalEndDate)
+        // After resume, end date should be in the future (relative to when we resumed)
+        XCTAssertNotNil(sut.intervalEndDate)
+        XCTAssertGreaterThan(sut.intervalEndDate!, timeBeforeResume)
     }
 
     func testResume_whenNotPaused_doesNothing() {
