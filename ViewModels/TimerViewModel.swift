@@ -68,6 +68,10 @@ class TimerViewModel: ObservableObject {
     /// State before pausing (to restore on resume)
     private var stateBeforePause: TimerState = .idle
 
+    /// Flag to skip Live Activity updates during synchronization
+    /// (prevents multiple rapid updates when catching up on missed transitions)
+    private var isSynchronizing: Bool = false
+
     // MARK: - Timer
 
     /// Timer for UI updates (0.1s interval)
@@ -260,6 +264,10 @@ class TimerViewModel: ObservableObject {
     func synchronizeState() {
         guard state.isActive else { return }
 
+        // Set flag to skip Live Activity updates during catch-up
+        // (we'll do one final update at the end)
+        isSynchronizing = true
+
         // Process all missed state transitions
         while timerEngine.hasIntervalEnded() &&
               state != .finished &&
@@ -267,24 +275,33 @@ class TimerViewModel: ObservableObject {
             advanceToNextInterval()
         }
 
+        // Clear synchronization flag
+        isSynchronizing = false
+
         // Update UI with current state
         updateState()
 
         // Force update Live Activity with current state after sync
         // This ensures the countdown shows correctly after returning from background
         if #available(iOS 16.1, *) {
+            let currentState = state
+            let round = currentRound
+            let rounds = totalRounds
+            let endDate = timerEngine.intervalEndDate ?? Date()
+            let paused = state == .paused
+
             Task {
                 await liveActivityManager?.updateLiveActivity(
-                    currentState: state,
-                    currentRound: currentRound,
-                    totalRounds: totalRounds,
-                    intervalEndDate: timerEngine.intervalEndDate ?? Date(),
-                    isPaused: state == .paused
+                    currentState: currentState,
+                    currentRound: round,
+                    totalRounds: rounds,
+                    intervalEndDate: endDate,
+                    isPaused: paused
                 )
             }
         }
 
-        print("TimerViewModel: Synchronized state - \(state), round \(currentRound)/\(totalRounds)")
+        print("TimerViewModel: Synchronized state - \(state), round \(currentRound)/\(totalRounds), endDate: \(timerEngine.intervalEndDate?.description ?? "nil")")
     }
 
     // MARK: - Private Methods
@@ -416,16 +433,18 @@ class TimerViewModel: ObservableObject {
             break
         }
 
-        // Update Live Activity with new state
-        if #available(iOS 16.1, *) {
-            Task {
-                await liveActivityManager?.updateLiveActivity(
-                    currentState: state,
-                    currentRound: currentRound,
-                    totalRounds: totalRounds,
-                    intervalEndDate: timerEngine.intervalEndDate ?? Date(),
-                    isPaused: false
-                )
+        // Update Live Activity with new state (skip during synchronization)
+        if !isSynchronizing {
+            if #available(iOS 16.1, *) {
+                Task {
+                    await liveActivityManager?.updateLiveActivity(
+                        currentState: state,
+                        currentRound: currentRound,
+                        totalRounds: totalRounds,
+                        intervalEndDate: timerEngine.intervalEndDate ?? Date(),
+                        isPaused: false
+                    )
+                }
             }
         }
     }
