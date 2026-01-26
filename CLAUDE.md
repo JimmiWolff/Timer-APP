@@ -44,7 +44,33 @@ xcodebuild -project CircuitTimer.xcodeproj -scheme CircuitTimer -sdk iphonesimul
 xcodebuild -project CircuitTimer.xcodeproj -scheme CircuitTimer clean
 
 # Run tests
-xcodebuild -project CircuitTimer.xcodeproj -scheme CircuitTimer test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15'
+./scripts/run-tests.sh
+# Or manually:
+xcodebuild test -project CircuitTimer.xcodeproj -scheme CircuitTimer -destination 'platform=iOS Simulator,name=iPhone 17' -quiet
+```
+
+## Testing
+
+### Pre-commit Hook
+A pre-commit hook is installed that:
+- On **main branch**: Runs the full test suite before allowing commits
+- On **feature branches**: Runs a quick build check
+
+If tests fail, the commit is aborted. Fix the failing tests before committing.
+
+### Test Suites
+- **TimerEngineTests**: Core date-based timer logic
+- **TimerConfigurationTests**: Workout configuration validation and calculations
+- **TimerStateTests**: State machine properties and transitions
+- **TimerViewModelTests**: Main orchestration layer
+
+### Running Tests Manually
+```bash
+# Quick test run
+./scripts/run-tests.sh
+
+# Verbose output
+xcodebuild test -project CircuitTimer.xcodeproj -scheme CircuitTimer -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 **Open in Xcode:**

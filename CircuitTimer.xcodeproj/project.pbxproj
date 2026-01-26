@@ -44,6 +44,10 @@
 		ECF7EC032F157518001215E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF22F157517001215E9 /* ContentView.swift */; };
 		ECF7EC042F157518001215E9 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF42F157518001215E9 /* TimerViewModel.swift */; };
 		ECF7EC0B2F157658001215E9 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */; };
+		5A661F1E089E49E885CAC53B /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */; };
+		D5C63E851C9143F29F19166D /* TimerConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */; };
+		ED1CAD2B72F64FA7A80D010C /* TimerStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F47DD24BE243F498DC2961 /* TimerStateTests.swift */; };
+		D1D7491B734C40F48167818B /* TimerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D211C7A8874D4764A067430B /* TimerViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +127,10 @@
 		ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
 		ECF7EBF22F157517001215E9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ECF7EBF42F157518001215E9 /* TimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationTests.swift; sourceTree = "<group>"; };
+		75F47DD24BE243F498DC2961 /* TimerStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStateTests.swift; sourceTree = "<group>"; };
+		D211C7A8874D4764A067430B /* TimerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +220,10 @@
 			isa = PBXGroup;
 			children = (
 				ECF7EBA92F1553A5001215E9 /* CircuitTimerTests.swift */,
+				C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */,
+				DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */,
+				75F47DD24BE243F498DC2961 /* TimerStateTests.swift */,
+				D211C7A8874D4764A067430B /* TimerViewModelTests.swift */,
 			);
 			path = CircuitTimerTests;
 			sourceTree = "<group>";
@@ -497,6 +509,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF7EBAA2F1553A5001215E9 /* CircuitTimerTests.swift in Sources */,
+				5A661F1E089E49E885CAC53B /* TimerEngineTests.swift in Sources */,
+				D5C63E851C9143F29F19166D /* TimerConfigurationTests.swift in Sources */,
+				ED1CAD2B72F64FA7A80D010C /* TimerStateTests.swift in Sources */,
+				D1D7491B734C40F48167818B /* TimerViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
