@@ -443,9 +443,19 @@ class TimerViewModel: ObservableObject {
         // Play completion beep
         audioManager.playBeep(.workoutComplete)
 
-        // End Live Activity
+        // Update Live Activity to show "COMPLETE" state before ending
+        // Using isPaused: true to show static text instead of a counting timer
         if #available(iOS 16.1, *) {
             Task {
+                await liveActivityManager?.updateLiveActivity(
+                    currentState: .finished,
+                    currentRound: totalRounds,
+                    totalRounds: totalRounds,
+                    intervalEndDate: Date(),
+                    isPaused: true
+                )
+                // End after a brief moment to ensure update is applied
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
                 await liveActivityManager?.endLiveActivity(
                     dismissalPolicy: .after(Date().addingTimeInterval(10))
                 )
