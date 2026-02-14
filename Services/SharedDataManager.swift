@@ -28,6 +28,12 @@ class SharedDataManager: ObservableObject {
     /// Key for last command timestamp (to detect changes)
     private static let lastCommandTimestampKey = "lastCommandTimestamp"
 
+    /// Key for stop command
+    private static let stopCommandKey = "stopCommand"
+
+    /// Key for last stop command timestamp (to detect changes)
+    private static let lastStopCommandTimestampKey = "lastStopCommandTimestamp"
+
     // MARK: - Properties
 
     /// Shared UserDefaults for App Group
@@ -36,11 +42,17 @@ class SharedDataManager: ObservableObject {
     /// Publisher for pause/resume commands
     let pauseResumePublisher = PassthroughSubject<Void, Never>()
 
+    /// Publisher for stop commands
+    let stopPublisher = PassthroughSubject<Void, Never>()
+
     /// Timer for polling shared defaults (widget extensions can't use Darwin notifications reliably)
     private var pollingTimer: Timer?
 
     /// Last processed timestamp to detect new commands
     private var lastProcessedTimestamp: TimeInterval = 0
+
+    /// Last processed stop command timestamp to detect new commands
+    private var lastProcessedStopTimestamp: TimeInterval = 0
 
     // MARK: - Initialization
 
@@ -51,8 +63,9 @@ class SharedDataManager: ObservableObject {
             print("SharedDataManager: WARNING - Could not access App Group. Ensure App Groups capability is configured.")
         }
 
-        // Initialize last processed timestamp
+        // Initialize last processed timestamps
         lastProcessedTimestamp = sharedDefaults?.double(forKey: Self.lastCommandTimestampKey) ?? 0
+        lastProcessedStopTimestamp = sharedDefaults?.double(forKey: Self.lastStopCommandTimestampKey) ?? 0
     }
 
     // MARK: - Widget Extension Methods (Write)
@@ -125,7 +138,7 @@ class SharedDataManager: ObservableObject {
 
         print("SharedDataManager: Check - timestamp=\(currentTimestamp), lastProcessed=\(lastProcessedTimestamp), pending=\(hasPendingCommand)")
 
-        // Check if there's a new command (timestamp changed AND flag is set)
+        // Check if there's a new pause/resume command (timestamp changed AND flag is set)
         if currentTimestamp > lastProcessedTimestamp && hasPendingCommand {
             lastProcessedTimestamp = currentTimestamp
 
@@ -136,6 +149,25 @@ class SharedDataManager: ObservableObject {
             // Notify observers
             print("SharedDataManager: Processing pause/resume command!")
             pauseResumePublisher.send()
+        }
+
+        // Check for stop commands
+        let stopTimestamp = defaults.double(forKey: Self.lastStopCommandTimestampKey)
+        let hasPendingStopCommand = defaults.bool(forKey: Self.stopCommandKey)
+
+        print("SharedDataManager: Check stop - timestamp=\(stopTimestamp), lastProcessed=\(lastProcessedStopTimestamp), pending=\(hasPendingStopCommand)")
+
+        // Check if there's a new stop command (timestamp changed AND flag is set)
+        if stopTimestamp > lastProcessedStopTimestamp && hasPendingStopCommand {
+            lastProcessedStopTimestamp = stopTimestamp
+
+            // Clear the flag
+            defaults.set(false, forKey: Self.stopCommandKey)
+            defaults.synchronize()
+
+            // Notify observers
+            print("SharedDataManager: Processing stop command!")
+            stopPublisher.send()
         }
     }
 

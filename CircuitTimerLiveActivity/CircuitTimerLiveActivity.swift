@@ -60,13 +60,22 @@ struct CircuitTimerLiveActivity: Widget {
 
             Spacer()
 
-            // Right: Pause/Resume button
-            Button(intent: PauseResumeIntent()) {
-                Image(systemName: context.state.isPaused ? "play.fill" : "pause.fill")
-                    .font(.title2)
-                    .foregroundColor(.accentColor)
+            // Right: Pause/Resume and Stop buttons
+            HStack(spacing: 12) {
+                Button(intent: PauseResumeIntent()) {
+                    Image(systemName: context.state.isPaused ? "play.fill" : "pause.fill")
+                        .font(.title2)
+                        .foregroundColor(.accentColor)
+                }
+                .buttonStyle(.plain)
+
+                Button(intent: StopIntent()) {
+                    Image(systemName: "stop.fill")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
         }
         .padding()
         .activityBackgroundTint(Color(UIColor.systemBackground))
@@ -115,6 +124,13 @@ struct CircuitTimerLiveActivity: Widget {
                     // Pause/Resume button
                     Button(intent: PauseResumeIntent()) {
                         Image(systemName: context.state.isPaused ? "play.fill" : "pause.fill")
+                    }
+                    .buttonStyle(.plain)
+
+                    // Stop button
+                    Button(intent: StopIntent()) {
+                        Image(systemName: "stop.fill")
+                            .foregroundColor(.red)
                     }
                     .buttonStyle(.plain)
                 }

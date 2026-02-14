@@ -14,6 +14,7 @@
 		EC71EE362F1E853500020582 /* GlassmorphicTimerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */; };
 		EC71EE3A2F1F000000020582 /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE392F1F000000020582 /* SharedDataManager.swift */; };
 		EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */; };
+		EC94C73A2F2A000000B54D1F /* StopIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C73B2F2A000000B54D1F /* StopIntent.swift */; };
 		EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */; };
 		EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */; };
 		EC94C7372F1A923800B54D1F /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE52F157517001215E9 /* TimerState.swift */; };
@@ -99,6 +100,7 @@
 		EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivityBundle.swift; sourceTree = "<group>"; };
 		EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircuitTimerLiveActivity.swift; sourceTree = "<group>"; };
 		EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseResumeIntent.swift; sourceTree = "<group>"; };
+		EC94C73B2F2A000000B54D1F /* StopIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIntent.swift; sourceTree = "<group>"; };
 		ECF7EB942F1553A3001215E9 /* CircuitTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECF7EB9D2F1553A5001215E9 /* CircuitTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CircuitTimer.entitlements; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */,
+				EC94C73B2F2A000000B54D1F /* StopIntent.swift */,
 				EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */,
 				EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */,
 			);
@@ -533,6 +536,7 @@
 				EC94C7382F1A923800B54D1F /* IntervalType.swift in Sources */,
 				EC94C7392F1A923800B54D1F /* TimerConfiguration.swift in Sources */,
 				EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */,
+				EC94C73A2F2A000000B54D1F /* StopIntent.swift in Sources */,
 				EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */,
 				EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */,
 				ECF7EC0B2F157658001215E9 /* LiveActivityManager.swift in Sources */,

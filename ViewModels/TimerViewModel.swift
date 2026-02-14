@@ -80,6 +80,9 @@ class TimerViewModel: ObservableObject {
     /// Notification observer for pause/resume from Live Activity
     private var pauseResumeObserver: AnyCancellable?
 
+    /// Notification observer for stop from Live Activity
+    private var stopObserver: AnyCancellable?
+
     // MARK: - Initialization
 
     init() {
@@ -90,6 +93,9 @@ class TimerViewModel: ObservableObject {
 
         // Observe pause/resume notifications from Live Activity
         setupPauseResumeObserver()
+
+        // Observe stop notifications from Live Activity
+        setupStopObserver()
     }
 
     // MARK: - Public Methods
@@ -249,10 +255,10 @@ class TimerViewModel: ObservableObject {
         timeRemaining = 0
         progress = 0.0
 
-        // End Live Activity
+        // End Live Activity immediately when stopped/reset
         if #available(iOS 16.1, *) {
             Task {
-                await liveActivityManager?.endLiveActivity()
+                await liveActivityManager?.endLiveActivity(dismissalPolicy: .immediate)
             }
         }
     }
@@ -504,6 +510,28 @@ class TimerViewModel: ObservableObject {
                     self.resume()
                 } else {
                     print("TimerViewModel: Cannot pause or resume in current state")
+                }
+            }
+    }
+
+    /// Setup observer for stop from Live Activity via App Groups
+    private func setupStopObserver() {
+        // Subscribe to SharedDataManager's stop publisher
+        // This uses App Groups for cross-process communication from widget extension
+        stopObserver = SharedDataManager.shared.stopPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else {
+                    print("TimerViewModel: Stop received but self is nil")
+                    return
+                }
+                print("TimerViewModel: Stop command received - current state: \(self.state)")
+                // Stop can be called from any active state
+                if self.state != .idle && self.state != .finished {
+                    print("TimerViewModel: Calling reset()")
+                    self.reset()
+                } else {
+                    print("TimerViewModel: Cannot stop in current state (already idle or finished)")
                 }
             }
     }
