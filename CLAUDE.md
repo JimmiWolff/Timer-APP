@@ -105,7 +105,7 @@ Services (TimerEngine, AudioManager, LiveActivityManager, BackgroundUpdateSchedu
 
 **TimerViewModel** (`ViewModels/TimerViewModel.swift`):
 - Orchestrates timer, audio, and Live Activity services
-- Manages state machine: idle → work ↔ rest → restBetweenSets → finished
+- Manages state machine: idle → countdown → work ↔ rest → restBetweenSets → finished
 - Handles pause/resume from both app UI and Live Activity controls
 - `synchronizeState()` catches up on missed transitions when app foregrounds
 
@@ -136,8 +136,10 @@ Services (TimerEngine, AudioManager, LiveActivityManager, BackgroundUpdateSchedu
 ### State Machine
 
 `TimerState` enum:
-- `.idle` → `.work` → `.rest` → `.work` ... → `.restBetweenSets` → `.work` ... → `.finished`
-- `.paused` can be entered from any active state
+- `.idle` → `.countdown` → `.work` → `.rest` → `.work` ... → `.restBetweenSets` → `.work` ... → `.finished`
+- `.countdown` is a 10-second "GET READY" phase before the first work interval
+- `.paused` can be entered from any active state (including countdown)
+- Final rest is skipped after the last work interval (workout completes immediately)
 
 ### Targets
 
