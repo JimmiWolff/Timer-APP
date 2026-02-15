@@ -36,6 +36,10 @@ final class TimerStateTests: XCTestCase {
         XCTAssertEqual(TimerState.finished.displayName, "COMPLETE")
     }
 
+    func testDisplayName_countdown_returnsGETREADY() {
+        XCTAssertEqual(TimerState.countdown.displayName, "GET READY")
+    }
+
     // MARK: - Is Active Tests
 
     func testIsActive_idle_returnsFalse() {
@@ -60,6 +64,10 @@ final class TimerStateTests: XCTestCase {
 
     func testIsActive_finished_returnsFalse() {
         XCTAssertFalse(TimerState.finished.isActive)
+    }
+
+    func testIsActive_countdown_returnsTrue() {
+        XCTAssertTrue(TimerState.countdown.isActive)
     }
 
     // MARK: - Can Pause Tests
@@ -88,6 +96,10 @@ final class TimerStateTests: XCTestCase {
         XCTAssertFalse(TimerState.finished.canPause)
     }
 
+    func testCanPause_countdown_returnsTrue() {
+        XCTAssertTrue(TimerState.countdown.canPause)
+    }
+
     // MARK: - Can Resume Tests
 
     func testCanResume_idle_returnsFalse() {
@@ -112,6 +124,10 @@ final class TimerStateTests: XCTestCase {
 
     func testCanResume_finished_returnsFalse() {
         XCTAssertFalse(TimerState.finished.canResume)
+    }
+
+    func testCanResume_countdown_returnsFalse() {
+        XCTAssertFalse(TimerState.countdown.canResume)
     }
 
     // MARK: - Can Reset Tests
@@ -140,10 +156,14 @@ final class TimerStateTests: XCTestCase {
         XCTAssertTrue(TimerState.finished.canReset)
     }
 
+    func testCanReset_countdown_returnsTrue() {
+        XCTAssertTrue(TimerState.countdown.canReset)
+    }
+
     // MARK: - Codable Tests
 
     func testCodable_encodesAndDecodesCorrectly() throws {
-        let states: [TimerState] = [.idle, .work, .rest, .restBetweenSets, .paused, .finished]
+        let states: [TimerState] = [.idle, .countdown, .work, .rest, .restBetweenSets, .paused, .finished]
 
         for state in states {
             let encoder = JSONEncoder()
@@ -160,6 +180,7 @@ final class TimerStateTests: XCTestCase {
 
     func testRawValue_matchesExpected() {
         XCTAssertEqual(TimerState.idle.rawValue, "idle")
+        XCTAssertEqual(TimerState.countdown.rawValue, "countdown")
         XCTAssertEqual(TimerState.work.rawValue, "work")
         XCTAssertEqual(TimerState.rest.rawValue, "rest")
         XCTAssertEqual(TimerState.restBetweenSets.rawValue, "restBetweenSets")

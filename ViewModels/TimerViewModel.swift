@@ -110,6 +110,9 @@ class TimerViewModel: ObservableObject {
         self.config = configuration
     }
 
+    /// Countdown duration before first work interval (seconds)
+    private let countdownDuration: Int = 10
+
     /// Start the workout timer
     func start() {
         guard let config = config else {
@@ -118,16 +121,16 @@ class TimerViewModel: ObservableObject {
         }
 
         // Initialize state
-        state = .work
+        state = .countdown
         currentRound = 1
         currentSet = 1
-        stateBeforePause = .work
+        stateBeforePause = .countdown
 
-        // Start first work interval
-        timerEngine.startInterval(duration: TimeInterval(config.workTime))
+        // Start countdown interval (10 seconds)
+        timerEngine.startInterval(duration: TimeInterval(countdownDuration))
 
-        // Play work start beep
-        audioManager.playBeep(.workStart)
+        // Play a beep to signal countdown start
+        audioManager.playBeep(.restStart)
 
         // Schedule background wake-ups for state transitions
         // This ensures the app wakes up to update Live Activities even when suspended
@@ -144,7 +147,7 @@ class TimerViewModel: ObservableObject {
             Task {
                 try? await liveActivityManager?.startLiveActivity(
                     config: config,
-                    currentState: .work,
+                    currentState: .countdown,
                     currentRound: 1,
                     intervalEndDate: timerEngine.intervalEndDate ?? Date()
                 )
@@ -331,6 +334,8 @@ class TimerViewModel: ObservableObject {
         // Update progress
         let totalDuration: TimeInterval
         switch state {
+        case .countdown:
+            totalDuration = TimeInterval(countdownDuration)
         case .work:
             totalDuration = TimeInterval(config.workTime)
         case .rest:
@@ -353,8 +358,24 @@ class TimerViewModel: ObservableObject {
         guard let config = config else { return }
 
         switch state {
+        case .countdown:
+            // Countdown → Work (first work interval)
+            state = .work
+            stateBeforePause = .work
+            timerEngine.startInterval(duration: TimeInterval(config.workTime))
+            audioManager.playBeep(.workStart)
+
         case .work:
-            // Work → Rest
+            // Check if this is the last work interval (last round of last set)
+            let isLastWorkInterval = (currentRound == config.rounds && currentSet == config.sets)
+
+            if isLastWorkInterval {
+                // Skip rest and complete workout immediately
+                completeWorkout()
+                return
+            }
+
+            // Work → Rest (or next round/set if no rest)
             if config.restTime > 0 {
                 state = .rest
                 stateBeforePause = .rest
@@ -386,7 +407,7 @@ class TimerViewModel: ObservableObject {
                             audioManager.playBeep(.workStart)
                         }
                     } else {
-                        // All sets completed
+                        // All sets completed (shouldn't reach here due to isLastWorkInterval check)
                         completeWorkout()
                         return
                     }
@@ -563,8 +584,9 @@ class TimerViewModel: ObservableObject {
 
     /// Formatted time remaining (MM:SS)
     var formattedTimeRemaining: String {
-        let minutes = Int(timeRemaining) / 60
-        let seconds = Int(timeRemaining) % 60
+        let totalSeconds = Int(ceil(timeRemaining))
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 

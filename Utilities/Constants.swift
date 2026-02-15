@@ -63,6 +63,16 @@ enum Constants {
             endPoint: .bottomTrailing
         )
 
+        /// Countdown state gradient (orange/yellow: #f7971e → #ffd200)
+        static let countdown = LinearGradient(
+            gradient: Gradient(colors: [
+                Color(red: 0.969, green: 0.592, blue: 0.118),
+                Color(red: 1.0, green: 0.824, blue: 0.0)
+            ]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+
         /// Get gradient for a specific timer state
         /// - Parameter state: Timer state
         /// - Returns: LinearGradient for that state
@@ -70,6 +80,8 @@ enum Constants {
             switch state {
             case .idle:
                 return idle
+            case .countdown:
+                return countdown
             case .work:
                 return work
             case .rest:
@@ -302,6 +314,8 @@ extension Color {
         switch state {
         case .idle:
             return Constants.Colors.idle
+        case .countdown:
+            return .orange
         case .work:
             return Constants.Colors.work
         case .rest:

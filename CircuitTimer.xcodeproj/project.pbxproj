@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A661F1E089E49E885CAC53B /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */; };
+		D1D7491B734C40F48167818B /* TimerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D211C7A8874D4764A067430B /* TimerViewModelTests.swift */; };
+		D5C63E851C9143F29F19166D /* TimerConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */; };
 		E3917068E99C48DB991DFCC4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 671CF24260F641A99E88910F /* PrivacyInfo.xcprivacy */; };
 		EC71EE302F1E7C3800020582 /* BackgroundUpdateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */; };
 		EC71EE322F1E851000020582 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE312F1E851000020582 /* ViewModifiers.swift */; };
@@ -14,12 +17,12 @@
 		EC71EE362F1E853500020582 /* GlassmorphicTimerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */; };
 		EC71EE3A2F1F000000020582 /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC71EE392F1F000000020582 /* SharedDataManager.swift */; };
 		EC94C7342F1A905800B54D1F /* PauseResumeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C7322F1A8F9700B54D1F /* PauseResumeIntent.swift */; };
-		EC94C73A2F2A000000B54D1F /* StopIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C73B2F2A000000B54D1F /* StopIntent.swift */; };
 		EC94C7352F1A905800B54D1F /* CircuitTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72F2F1A8F7C00B54D1F /* CircuitTimerLiveActivity.swift */; };
 		EC94C7362F1A905800B54D1F /* CircuitTimerLiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C72E2F1A8F7C00B54D1F /* CircuitTimerLiveActivityBundle.swift */; };
 		EC94C7372F1A923800B54D1F /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE52F157517001215E9 /* TimerState.swift */; };
 		EC94C7382F1A923800B54D1F /* IntervalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE62F157517001215E9 /* IntervalType.swift */; };
 		EC94C7392F1A923800B54D1F /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE72F157517001215E9 /* TimerConfiguration.swift */; };
+		EC94C73A2F2A000000B54D1F /* StopIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC94C73B2F2A000000B54D1F /* StopIntent.swift */; };
 		ECF7EB9C2F1553A5001215E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECF7EB9B2F1553A5001215E9 /* Assets.xcassets */; };
 		ECF7EBA02F1553A5001215E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECF7EB9F2F1553A5001215E9 /* Preview Assets.xcassets */; };
 		ECF7EBAA2F1553A5001215E9 /* CircuitTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBA92F1553A5001215E9 /* CircuitTimerTests.swift */; };
@@ -45,10 +48,7 @@
 		ECF7EC032F157518001215E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF22F157517001215E9 /* ContentView.swift */; };
 		ECF7EC042F157518001215E9 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBF42F157518001215E9 /* TimerViewModel.swift */; };
 		ECF7EC0B2F157658001215E9 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF7EBE12F157516001215E9 /* LiveActivityManager.swift */; };
-		5A661F1E089E49E885CAC53B /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */; };
-		D5C63E851C9143F29F19166D /* TimerConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */; };
 		ED1CAD2B72F64FA7A80D010C /* TimerStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F47DD24BE243F498DC2961 /* TimerStateTests.swift */; };
-		D1D7491B734C40F48167818B /* TimerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D211C7A8874D4764A067430B /* TimerViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +91,11 @@
 
 /* Begin PBXFileReference section */
 		671CF24260F641A99E88910F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		75F47DD24BE243F498DC2961 /* TimerStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStateTests.swift; sourceTree = "<group>"; };
 		BE571D3D2F26623F008A6681 /* CircuitTimerLiveActivityExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CircuitTimerLiveActivityExtension.entitlements; sourceTree = "<group>"; };
+		C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		D211C7A8874D4764A067430B /* TimerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModelTests.swift; sourceTree = "<group>"; };
+		DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationTests.swift; sourceTree = "<group>"; };
 		EC71EE2F2F1E7C3800020582 /* BackgroundUpdateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundUpdateScheduler.swift; sourceTree = "<group>"; };
 		EC71EE312F1E851000020582 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		EC71EE332F1E853500020582 /* GlassmorphicTimerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassmorphicTimerDisplay.swift; sourceTree = "<group>"; };
@@ -129,10 +133,6 @@
 		ECF7EBF12F157517001215E9 /* TimeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeDisplayView.swift; sourceTree = "<group>"; };
 		ECF7EBF22F157517001215E9 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ECF7EBF42F157518001215E9 /* TimerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
-		C14611CE35124A509E5D0F53 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
-		DB8D119C803F449DA76919C4 /* TimerConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationTests.swift; sourceTree = "<group>"; };
-		75F47DD24BE243F498DC2961 /* TimerStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStateTests.swift; sourceTree = "<group>"; };
-		D211C7A8874D4764A067430B /* TimerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -686,7 +686,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CircuitTimer/CircuitTimer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"CircuitTimer/Preview Content\"";
 				DEVELOPMENT_TEAM = 39X9SCCPSV;
 				ENABLE_PREVIEWS = YES;
@@ -706,7 +706,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -725,7 +725,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CircuitTimer/CircuitTimer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"CircuitTimer/Preview Content\"";
 				DEVELOPMENT_TEAM = 39X9SCCPSV;
 				ENABLE_PREVIEWS = YES;
@@ -745,7 +745,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Wolff.CircuitTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

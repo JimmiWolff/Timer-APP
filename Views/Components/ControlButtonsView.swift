@@ -52,7 +52,7 @@ struct ControlButtonsView: View {
                     accessibilityIdentifier: Constants.Accessibility.resetButton
                 )
 
-            case .work, .rest, .restBetweenSets:
+            case .countdown, .work, .rest, .restBetweenSets:
                 // Show pause button
                 ControlButton(
                     icon: "pause.fill",

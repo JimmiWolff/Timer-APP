@@ -74,8 +74,9 @@ struct GlassmorphicTimerDisplay: View {
 
     /// Formatted time string (MM:SS)
     private var formattedTime: String {
-        let minutes = Int(timeRemaining) / 60
-        let seconds = Int(timeRemaining) % 60
+        let totalSeconds = Int(ceil(timeRemaining))
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }

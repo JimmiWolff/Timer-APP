@@ -67,22 +67,22 @@ final class TimerViewModelTests: XCTestCase {
 
     // MARK: - Start Tests
 
-    func testStart_withConfiguration_setsStateToWork() {
+    func testStart_withConfiguration_setsStateToCountdown() {
         let config = TimerConfiguration(workTime: 30, restTime: 10, rounds: 8)
         sut.configure(config)
         sut.start()
-        XCTAssertEqual(sut.state, .work)
+        XCTAssertEqual(sut.state, .countdown)
     }
 
-    func testStart_withConfiguration_setsTimeRemaining() {
+    func testStart_withConfiguration_setsTimeRemainingToCountdown() {
         let config = TimerConfiguration(workTime: 30, restTime: 10, rounds: 8)
         sut.configure(config)
         sut.start()
         // Force state update (normally done by UI timer)
         sut.synchronizeState()
-        // timeRemaining should be close to 30 (allow for execution time)
-        XCTAssertGreaterThan(sut.timeRemaining, 29)
-        XCTAssertLessThanOrEqual(sut.timeRemaining, 30)
+        // timeRemaining should be close to 10 (countdown duration, allow for execution time)
+        XCTAssertGreaterThan(sut.timeRemaining, 9)
+        XCTAssertLessThanOrEqual(sut.timeRemaining, 10)
     }
 
     func testStart_withConfiguration_setsCurrentRoundToOne() {
@@ -129,15 +129,16 @@ final class TimerViewModelTests: XCTestCase {
         sut.start()
         sut.pause()
         sut.resume()
-        XCTAssertEqual(sut.state, .work)
+        // After start, we're in countdown state, so resume restores to countdown
+        XCTAssertEqual(sut.state, .countdown)
     }
 
     func testResume_whenNotPaused_doesNothing() {
         let config = TimerConfiguration(workTime: 30, restTime: 10, rounds: 8)
         sut.configure(config)
         sut.start()
-        sut.resume() // Should do nothing since we're in work state
-        XCTAssertEqual(sut.state, .work)
+        sut.resume() // Should do nothing since we're in countdown state
+        XCTAssertEqual(sut.state, .countdown)
     }
 
     // MARK: - Reset Tests
@@ -190,7 +191,8 @@ final class TimerViewModelTests: XCTestCase {
         let config = TimerConfiguration(workTime: 30, restTime: 10, rounds: 8)
         sut.configure(config)
         sut.start()
-        XCTAssertEqual(sut.currentStateText, TimerState.work.displayName)
+        // After start, we're in countdown state
+        XCTAssertEqual(sut.currentStateText, TimerState.countdown.displayName)
     }
 
     func testFormattedTimeRemaining_formatsCorrectly() {
@@ -199,9 +201,9 @@ final class TimerViewModelTests: XCTestCase {
         sut.start()
         // Force state update (normally done by UI timer)
         sut.synchronizeState()
-        // Should be around "01:29" or "01:30" (90 seconds = 1:30)
-        XCTAssertTrue(sut.formattedTimeRemaining.hasPrefix("01:2") || sut.formattedTimeRemaining == "01:30",
-                      "Expected time around 01:30, got \(sut.formattedTimeRemaining)")
+        // Should be around "00:09" or "00:10" (10 second countdown)
+        XCTAssertTrue(sut.formattedTimeRemaining.hasPrefix("00:0") || sut.formattedTimeRemaining == "00:10",
+                      "Expected time around 00:10, got \(sut.formattedTimeRemaining)")
     }
 
     func testFormattedTimeRemaining_atZero_showsZero() {

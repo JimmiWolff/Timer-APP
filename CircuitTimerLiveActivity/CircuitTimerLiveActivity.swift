@@ -166,6 +166,8 @@ struct CircuitTimerLiveActivity: Widget {
     /// Get color for state
     private func stateColor(_ stateName: String) -> Color {
         switch stateName {
+        case "GET READY":
+            return .orange
         case "WORK":
             return .green
         case "REST":
@@ -182,6 +184,8 @@ struct CircuitTimerLiveActivity: Widget {
     /// Get icon for state
     private func iconForState(_ stateName: String) -> String {
         switch stateName {
+        case "GET READY":
+            return "figure.wave"
         case "WORK":
             return "figure.run"
         case "REST":
@@ -216,8 +220,9 @@ struct CircuitTimerLiveActivity: Widget {
     /// Format time remaining as MM:SS for static display when paused
     private func formatTimeRemaining(_ endDate: Date) -> String {
         let remaining = max(0, endDate.timeIntervalSinceNow)
-        let minutes = Int(remaining) / 60
-        let seconds = Int(remaining) % 60
+        let totalSeconds = Int(ceil(remaining))
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
         return String(format: "%d:%02d", minutes, seconds)
     }
 }

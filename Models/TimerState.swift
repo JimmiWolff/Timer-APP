@@ -12,6 +12,9 @@ enum TimerState: String, Codable, Hashable {
     /// Timer is idle, not started
     case idle
 
+    /// Countdown before first work interval ("Get Ready")
+    case countdown
+
     /// Work interval is active
     case work
 
@@ -32,6 +35,8 @@ enum TimerState: String, Codable, Hashable {
         switch self {
         case .idle:
             return "Ready"
+        case .countdown:
+            return "GET READY"
         case .work:
             return "WORK"
         case .rest:
@@ -47,12 +52,12 @@ enum TimerState: String, Codable, Hashable {
 
     /// Whether the timer is currently running
     var isActive: Bool {
-        return self == .work || self == .rest || self == .restBetweenSets
+        return self == .countdown || self == .work || self == .rest || self == .restBetweenSets
     }
 
     /// Whether the timer can be paused
     var canPause: Bool {
-        return self == .work || self == .rest || self == .restBetweenSets
+        return self == .countdown || self == .work || self == .rest || self == .restBetweenSets
     }
 
     /// Whether the timer can be resumed
