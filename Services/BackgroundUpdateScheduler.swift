@@ -27,28 +27,43 @@ class BackgroundUpdateScheduler {
     ///   - rounds: Total number of rounds per set
     ///   - sets: Total number of sets
     ///   - restBetweenSets: Rest duration between sets in seconds
+    ///   - countdownDuration: Countdown duration before first work interval (seconds)
     func scheduleTransitionWakeUps(
         workDuration: Int,
         restDuration: Int,
         rounds: Int,
         sets: Int = 1,
-        restBetweenSets: Int = 0
+        restBetweenSets: Int = 0,
+        countdownDuration: Int = 0
     ) {
         // Cancel any existing scheduled notifications
         cancelAllWakeUps()
 
-        var scheduledTime: TimeInterval = 0
+        let startDate = Date()
+        // Offset by countdown duration so notifications fire after countdown completes
+        var scheduledTime: TimeInterval = TimeInterval(countdownDuration)
         var notificationCount = 0
+        var scheduleEntries: [(offset: TimeInterval, wallClock: Date, description: String)] = []
 
         for set in 1...sets {
             for round in 1...rounds {
                 // Schedule wake-up at end of work interval (Work → Rest transition)
                 scheduledTime += TimeInterval(workDuration)
+
+                let isLastWorkInterval = (round == rounds && set == sets)
+                let description: String
+                if isLastWorkInterval {
+                    description = "WORK ends (Round \(round))"
+                } else {
+                    description = "WORK → REST (Round \(round))"
+                }
+
                 scheduleWakeUp(
                     identifier: "wakeup_set\(set)_round\(round)_work_to_rest",
                     timeInterval: scheduledTime,
                     message: "Set \(set), Round \(round) - Rest"
                 )
+                scheduleEntries.append((scheduledTime, startDate.addingTimeInterval(scheduledTime), description))
                 notificationCount += 1
 
                 // Schedule wake-up at end of rest interval (Rest → Work transition or end of set)
@@ -61,6 +76,7 @@ class BackgroundUpdateScheduler {
                             timeInterval: scheduledTime,
                             message: "Set \(set), Round \(round + 1) - Work"
                         )
+                        scheduleEntries.append((scheduledTime, startDate.addingTimeInterval(scheduledTime), "REST → WORK (Round \(round + 1))"))
                     } else {
                         // Last round of set, rest before next set
                         scheduleWakeUp(
@@ -68,6 +84,7 @@ class BackgroundUpdateScheduler {
                             timeInterval: scheduledTime,
                             message: "Rest between sets"
                         )
+                        scheduleEntries.append((scheduledTime, startDate.addingTimeInterval(scheduledTime), "REST → REST BETWEEN SETS"))
                     }
                     notificationCount += 1
                 }
@@ -81,9 +98,21 @@ class BackgroundUpdateScheduler {
                     timeInterval: scheduledTime,
                     message: "Set \(set + 1) - Starting"
                 )
+                scheduleEntries.append((scheduledTime, startDate.addingTimeInterval(scheduledTime), "SET \(set + 1) starts"))
                 notificationCount += 1
             }
         }
+
+        // Print workout notification schedule
+        printWorkoutSchedule(
+            startDate: startDate,
+            entries: scheduleEntries,
+            workDuration: workDuration,
+            restDuration: restDuration,
+            rounds: rounds,
+            sets: sets,
+            countdownDuration: countdownDuration
+        )
 
         print("BackgroundUpdateScheduler: Scheduled \(notificationCount) wake-up notifications")
     }
@@ -263,6 +292,46 @@ class BackgroundUpdateScheduler {
     }
 
     // MARK: - Private Methods
+
+    /// Print a formatted workout notification schedule to the console
+    private func printWorkoutSchedule(
+        startDate: Date,
+        entries: [(offset: TimeInterval, wallClock: Date, description: String)],
+        workDuration: Int,
+        restDuration: Int,
+        rounds: Int,
+        sets: Int,
+        countdownDuration: Int
+    ) {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+        let startTimeStr = timeFormatter.string(from: startDate)
+
+        var lines: [String] = []
+        lines.append("")
+        lines.append("══════════════════════════════════════════")
+        lines.append(" WORKOUT NOTIFICATION SCHEDULE")
+        lines.append(" Start: \(startTimeStr) | \(workDuration)s work, \(restDuration)s rest, \(rounds) rounds" + (sets > 1 ? ", \(sets) sets" : ""))
+        if countdownDuration > 0 {
+            lines.append(" Countdown: \(countdownDuration)s (offset applied)")
+        }
+        lines.append("──────────────────────────────────────────")
+
+        for entry in entries {
+            let mins = Int(entry.offset) / 60
+            let secs = Int(entry.offset) % 60
+            let offsetStr = String(format: "+%02d:%02d", mins, secs)
+            let wallStr = timeFormatter.string(from: entry.wallClock)
+            lines.append(" \(offsetStr)  \(wallStr)  \(entry.description)")
+        }
+
+        lines.append("══════════════════════════════════════════")
+        lines.append("")
+
+        for line in lines {
+            print(line)
+        }
+    }
 
     /// Schedule a single wake-up notification
     private func scheduleWakeUp(

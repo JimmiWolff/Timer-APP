@@ -139,7 +139,8 @@ class TimerViewModel: ObservableObject {
             restDuration: config.restTime,
             rounds: config.rounds,
             sets: config.sets,
-            restBetweenSets: config.restBetweenSets
+            restBetweenSets: config.restBetweenSets,
+            countdownDuration: countdownDuration
         )
 
         // Start Live Activity
@@ -273,6 +274,14 @@ class TimerViewModel: ObservableObject {
     func synchronizeState() {
         guard state.isActive else { return }
 
+        let syncDate = Date()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+
+        let stateBefore = state
+        let roundBefore = currentRound
+        let setBefore = currentSet
+
         // Set flag to skip Live Activity updates during catch-up
         // (we'll do one final update at the end)
         isSynchronizing = true
@@ -289,6 +298,25 @@ class TimerViewModel: ObservableObject {
 
         // Update UI with current state
         updateState()
+
+        // Log sync results
+        let remaining = timerEngine.timeRemaining()
+        let endDateStr: String
+        if let endDate = timerEngine.intervalEndDate {
+            endDateStr = timeFormatter.string(from: endDate)
+        } else {
+            endDateStr = "nil"
+        }
+
+        print("")
+        print("══════════════════════════════════════════")
+        print(" FOREGROUND SYNC at \(timeFormatter.string(from: syncDate))")
+        print(" Before: \(stateBefore.displayName) | Round: \(roundBefore)/\(totalRounds) | Set: \(setBefore)/\(totalSets)")
+        print(" After:  \(state.displayName) | Round: \(currentRound)/\(totalRounds) | Set: \(currentSet)/\(totalSets)")
+        print(" Time remaining: \(Int(remaining))s")
+        print(" Interval ends: \(endDateStr)")
+        print("══════════════════════════════════════════")
+        print("")
 
         // Force update Live Activity with current state after sync
         // This ensures the countdown shows correctly after returning from background
@@ -309,8 +337,6 @@ class TimerViewModel: ObservableObject {
                 )
             }
         }
-
-        print("TimerViewModel: Synchronized state - \(state), round \(currentRound)/\(totalRounds), endDate: \(timerEngine.intervalEndDate?.description ?? "nil")")
     }
 
     // MARK: - Private Methods
@@ -356,6 +382,10 @@ class TimerViewModel: ObservableObject {
     /// Advance to the next interval (Work → Rest → Work, etc.)
     private func advanceToNextInterval() {
         guard let config = config else { return }
+
+        let previousState = state
+        let previousRound = currentRound
+        let previousSet = currentSet
 
         switch state {
         case .countdown:
@@ -458,6 +488,14 @@ class TimerViewModel: ObservableObject {
 
         default:
             break
+        }
+
+        // Log state transition
+        do {
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH:mm:ss"
+            let nowStr = timeFormatter.string(from: Date())
+            print("[\(nowStr)] TRANSITION: \(previousState.displayName) R\(previousRound)/S\(previousSet) → \(state.displayName) R\(currentRound)/S\(currentSet)")
         }
 
         // Update Live Activity with new state (skip during synchronization)
