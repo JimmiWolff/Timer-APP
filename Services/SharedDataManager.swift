@@ -136,7 +136,10 @@ class SharedDataManager: ObservableObject {
         let currentTimestamp = defaults.double(forKey: Self.lastCommandTimestampKey)
         let hasPendingCommand = defaults.bool(forKey: Self.pauseResumeToggleKey)
 
-        print("SharedDataManager: Check - timestamp=\(currentTimestamp), lastProcessed=\(lastProcessedTimestamp), pending=\(hasPendingCommand)")
+        // Only log when there's something actionable (reduce polling noise)
+        if currentTimestamp > lastProcessedTimestamp || hasPendingCommand {
+            print("SharedDataManager: Check — pauseResume timestamp=\(currentTimestamp), lastProcessed=\(lastProcessedTimestamp), pending=\(hasPendingCommand)")
+        }
 
         // Check if there's a new pause/resume command (timestamp changed AND flag is set)
         if currentTimestamp > lastProcessedTimestamp && hasPendingCommand {
@@ -147,7 +150,7 @@ class SharedDataManager: ObservableObject {
             defaults.synchronize()
 
             // Notify observers
-            print("SharedDataManager: Processing pause/resume command!")
+            print("SharedDataManager: ▶ Processing pause/resume command!")
             pauseResumePublisher.send()
         }
 
@@ -155,7 +158,10 @@ class SharedDataManager: ObservableObject {
         let stopTimestamp = defaults.double(forKey: Self.lastStopCommandTimestampKey)
         let hasPendingStopCommand = defaults.bool(forKey: Self.stopCommandKey)
 
-        print("SharedDataManager: Check stop - timestamp=\(stopTimestamp), lastProcessed=\(lastProcessedStopTimestamp), pending=\(hasPendingStopCommand)")
+        // Only log when there's something actionable (reduce polling noise)
+        if stopTimestamp > lastProcessedStopTimestamp || hasPendingStopCommand {
+            print("SharedDataManager: Check — stop timestamp=\(stopTimestamp), lastProcessed=\(lastProcessedStopTimestamp), pending=\(hasPendingStopCommand)")
+        }
 
         // Check if there's a new stop command (timestamp changed AND flag is set)
         if stopTimestamp > lastProcessedStopTimestamp && hasPendingStopCommand {
@@ -166,7 +172,7 @@ class SharedDataManager: ObservableObject {
             defaults.synchronize()
 
             // Notify observers
-            print("SharedDataManager: Processing stop command!")
+            print("SharedDataManager: ▶ Processing stop command!")
             stopPublisher.send()
         }
     }

@@ -157,12 +157,34 @@ class BackgroundUpdateScheduler {
         // Determine starting point based on current state
         var startRound = currentRound
         var startSet = currentSet
+        var inCountdown = currentState == "GET READY"
         var inWork = currentState == "WORK"
         var inRest = currentState == "REST"
         var inRestBetweenSets = currentState == "REST BETWEEN SETS"
 
         // Schedule notification for end of current interval
-        if inWork {
+        if inCountdown {
+            // Schedule wake-up at end of countdown, then treat as starting work round 1
+            scheduleWakeUp(
+                identifier: "wakeup_countdown_end_resumed",
+                timeInterval: scheduledTime,
+                message: "Countdown complete - Work begins"
+            )
+            notificationCount += 1
+            // After countdown ends, we'll be in work for round 1
+            inCountdown = false
+            inWork = true
+            // Add work duration for round 1
+            scheduledTime += TimeInterval(workDuration)
+            scheduleWakeUp(
+                identifier: "wakeup_set\(startSet)_round\(startRound)_work_to_rest_resumed",
+                timeInterval: scheduledTime,
+                message: "Set \(startSet), Round \(startRound) - Rest"
+            )
+            notificationCount += 1
+            inWork = false
+            inRest = true
+        } else if inWork {
             scheduleWakeUp(
                 identifier: "wakeup_set\(startSet)_round\(startRound)_work_to_rest_resumed",
                 timeInterval: scheduledTime,
@@ -268,7 +290,9 @@ class BackgroundUpdateScheduler {
             }
         }
 
-        print("BackgroundUpdateScheduler: Scheduled \(notificationCount) remaining wake-up notifications")
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss"
+        print("[\(timeFormatter.string(from: Date()))] BackgroundUpdateScheduler: Scheduled \(notificationCount) remaining wake-up notifications (from \(currentState) R\(currentRound)/S\(currentSet), \(String(format: "%.1f", timeRemainingInInterval))s remaining)")
     }
 
     /// Request notification permissions (call once at app launch)

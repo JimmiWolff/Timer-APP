@@ -282,19 +282,32 @@ class TimerViewModel: ObservableObject {
         let roundBefore = currentRound
         let setBefore = currentSet
 
-        // Set flag to skip Live Activity updates during catch-up
+        // Set flag to skip Live Activity updates and audio during catch-up
         // (we'll do one final update at the end)
         isSynchronizing = true
 
         // Process all missed state transitions
+        var syncIterations = 0
         while timerEngine.hasIntervalEnded() &&
               state != .finished &&
               state != .paused {
+            syncIterations += 1
+            print("[SYNC] iteration \(syncIterations): \(state.displayName) R\(currentRound)/S\(currentSet), endDate=\(timerEngine.intervalEndDate?.description ?? "nil")")
             advanceToNextInterval()
+
+            // Safety: prevent infinite loop if something goes wrong
+            if syncIterations > 500 {
+                print("[SYNC] WARNING: exceeded 500 iterations, breaking")
+                break
+            }
         }
 
         // Clear synchronization flag
         isSynchronizing = false
+
+        if syncIterations > 0 {
+            print("[SYNC] caught up \(syncIterations) transition(s)")
+        }
 
         // Update UI with current state
         updateState()
@@ -387,13 +400,22 @@ class TimerViewModel: ObservableObject {
         let previousRound = currentRound
         let previousSet = currentSet
 
+        // Helper: start or chain interval depending on whether we're syncing
+        func beginInterval(duration: TimeInterval) {
+            if isSynchronizing {
+                timerEngine.chainInterval(duration: duration)
+            } else {
+                timerEngine.startInterval(duration: duration)
+            }
+        }
+
         switch state {
         case .countdown:
             // Countdown → Work (first work interval)
             state = .work
             stateBeforePause = .work
-            timerEngine.startInterval(duration: TimeInterval(config.workTime))
-            audioManager.playBeep(.workStart)
+            beginInterval(duration: TimeInterval(config.workTime))
+            if !isSynchronizing { audioManager.playBeep(.workStart) }
 
         case .work:
             // Check if this is the last work interval (last round of last set)
@@ -409,32 +431,32 @@ class TimerViewModel: ObservableObject {
             if config.restTime > 0 {
                 state = .rest
                 stateBeforePause = .rest
-                timerEngine.startInterval(duration: TimeInterval(config.restTime))
-                audioManager.playBeep(.restStart)
+                beginInterval(duration: TimeInterval(config.restTime))
+                if !isSynchronizing { audioManager.playBeep(.restStart) }
             } else {
                 // No rest period, go to next round or check for set completion
                 if currentRound < config.rounds {
                     currentRound += 1
                     state = .work
                     stateBeforePause = .work
-                    timerEngine.startInterval(duration: TimeInterval(config.workTime))
-                    audioManager.playBeep(.workStart)
+                    beginInterval(duration: TimeInterval(config.workTime))
+                    if !isSynchronizing { audioManager.playBeep(.workStart) }
                 } else {
                     // Last round of set completed, check for next set
                     if currentSet < config.sets {
                         if config.restBetweenSets > 0 {
                             state = .restBetweenSets
                             stateBeforePause = .restBetweenSets
-                            timerEngine.startInterval(duration: TimeInterval(config.restBetweenSets))
-                            audioManager.playBeep(.restStart)
+                            beginInterval(duration: TimeInterval(config.restBetweenSets))
+                            if !isSynchronizing { audioManager.playBeep(.restStart) }
                         } else {
                             // No rest between sets, start next set immediately
                             currentSet += 1
                             currentRound = 1
                             state = .work
                             stateBeforePause = .work
-                            timerEngine.startInterval(duration: TimeInterval(config.workTime))
-                            audioManager.playBeep(.workStart)
+                            beginInterval(duration: TimeInterval(config.workTime))
+                            if !isSynchronizing { audioManager.playBeep(.workStart) }
                         }
                     } else {
                         // All sets completed (shouldn't reach here due to isLastWorkInterval check)
@@ -451,24 +473,24 @@ class TimerViewModel: ObservableObject {
                 currentRound += 1
                 state = .work
                 stateBeforePause = .work
-                timerEngine.startInterval(duration: TimeInterval(config.workTime))
-                audioManager.playBeep(.workStart)
+                beginInterval(duration: TimeInterval(config.workTime))
+                if !isSynchronizing { audioManager.playBeep(.workStart) }
             } else {
                 // Last round of set completed, check for next set
                 if currentSet < config.sets {
                     if config.restBetweenSets > 0 {
                         state = .restBetweenSets
                         stateBeforePause = .restBetweenSets
-                        timerEngine.startInterval(duration: TimeInterval(config.restBetweenSets))
-                        audioManager.playBeep(.restStart)
+                        beginInterval(duration: TimeInterval(config.restBetweenSets))
+                        if !isSynchronizing { audioManager.playBeep(.restStart) }
                     } else {
                         // No rest between sets, start next set immediately
                         currentSet += 1
                         currentRound = 1
                         state = .work
                         stateBeforePause = .work
-                        timerEngine.startInterval(duration: TimeInterval(config.workTime))
-                        audioManager.playBeep(.workStart)
+                        beginInterval(duration: TimeInterval(config.workTime))
+                        if !isSynchronizing { audioManager.playBeep(.workStart) }
                     }
                 } else {
                     // All sets completed
@@ -483,8 +505,8 @@ class TimerViewModel: ObservableObject {
             currentRound = 1
             state = .work
             stateBeforePause = .work
-            timerEngine.startInterval(duration: TimeInterval(config.workTime))
-            audioManager.playBeep(.workStart)
+            beginInterval(duration: TimeInterval(config.workTime))
+            if !isSynchronizing { audioManager.playBeep(.workStart) }
 
         default:
             break

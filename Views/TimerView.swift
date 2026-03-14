@@ -110,18 +110,23 @@ struct TimerView: View {
     /// Handle scene phase changes (foreground/background)
     /// - Parameter phase: New scene phase
     private func handleScenePhaseChange(_ phase: ScenePhase) {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm:ss.SSS"
+        let now = timeFormatter.string(from: Date())
+
         switch phase {
         case .active:
-            // App came to foreground - synchronize state and restart widget command observation
-            print("TimerView: App active, synchronizing state and restarting command observation")
+            // App came to foreground
+            // IMPORTANT: Check widget commands FIRST so pause/stop commands
+            // are processed before synchronizeState() advances past them
+            print("[\(now)] TimerView: App active — checking widget commands first, then syncing state")
+            viewModel.checkPendingWidgetCommands()
             viewModel.synchronizeState()
-            // Restart observing (this also checks for pending commands immediately)
+            // Restart polling for ongoing observation
             viewModel.startObservingWidgetCommands()
 
         case .background:
-            // App went to background - keep polling active for when app is still running
-            // iOS will suspend us eventually, but we can still process commands until then
-            print("TimerView: App backgrounded (polling continues)")
+            print("[\(now)] TimerView: App backgrounded (polling continues)")
 
         case .inactive:
             // Transitional state

@@ -39,6 +39,23 @@ class TimerEngine {
         guard duration > 0 else { return }
         intervalEndDate = Date().addingTimeInterval(duration)
         pausedTimeRemaining = 0
+        print("[TimerEngine] startInterval(\(duration)s) → endDate=\(intervalEndDate!)")
+    }
+
+    /// Chain a new interval from the previous end date (used during sync catch-up)
+    ///
+    /// Unlike `startInterval`, this sets the new end date relative to the previous
+    /// end date rather than `Date()`. This allows the sync loop to advance through
+    /// multiple intervals correctly without resetting to "now" each time.
+    /// - Parameter duration: Interval duration in seconds
+    func chainInterval(duration: TimeInterval) {
+        guard duration > 0, let previousEnd = intervalEndDate else {
+            startInterval(duration: duration)
+            return
+        }
+        intervalEndDate = previousEnd.addingTimeInterval(duration)
+        pausedTimeRemaining = 0
+        print("[TimerEngine] chainInterval(\(duration)s) → endDate=\(intervalEndDate!) (chained from \(previousEnd))")
     }
 
     /// Get the time remaining in the current interval
@@ -62,15 +79,23 @@ class TimerEngine {
 
     /// Pause the timer, storing remaining time
     func pause() {
-        guard let endDate = intervalEndDate else { return }
+        guard let endDate = intervalEndDate else {
+            print("[TimerEngine] pause() — no endDate, ignoring")
+            return
+        }
         pausedTimeRemaining = max(0, endDate.timeIntervalSinceNow)
         intervalEndDate = nil
+        print("[TimerEngine] pause() — stored \(String(format: "%.1f", pausedTimeRemaining))s remaining")
     }
 
     /// Resume the timer from paused state
     func resume() {
-        guard pausedTimeRemaining > 0 else { return }
+        guard pausedTimeRemaining > 0 else {
+            print("[TimerEngine] resume() — no pausedTimeRemaining, ignoring")
+            return
+        }
         intervalEndDate = Date().addingTimeInterval(pausedTimeRemaining)
+        print("[TimerEngine] resume() — endDate=\(intervalEndDate!) (from \(String(format: "%.1f", pausedTimeRemaining))s remaining)")
         pausedTimeRemaining = 0
     }
 
@@ -78,6 +103,7 @@ class TimerEngine {
     func reset() {
         intervalEndDate = nil
         pausedTimeRemaining = 0
+        print("[TimerEngine] reset()")
     }
 
     /// Get the progress percentage of the current interval
